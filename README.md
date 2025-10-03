@@ -1,4 +1,8 @@
 # biaSense
-Sentiment Classification project 
+Sentiment klassifikations Projekt
 
-**Please use your own branch for experimenting, only merge to main branch when code fully functional and well tested**
+***Regeln***
+- Bitte nur getesteten und reviewten Code in den Mainbranch mergen (Review durch andere Person wäre gut)
+- Dokumentation auf deutsch
+- Kommentare auf deutsch im Code
+  
