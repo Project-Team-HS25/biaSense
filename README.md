@@ -6,3 +6,4 @@ Sentiment klassifikations Projekt
 - Dokumentation auf deutsch
 - Kommentare auf deutsch im Code
   
+https://github.com/orgs/Project-Team-HS25/projects/1
