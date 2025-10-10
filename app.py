@@ -14,7 +14,7 @@ st.set_page_config(
 st.title("📊 Text Bias Analyzer")
 st.markdown("---")
 st.markdown("""
-Analyze your text for filler words and bias. Enter your text below and discover patterns in writing style.
+Analyze your text for stopwords and bias. Enter your text below and discover patterns in writing style.
 """)
 
 # Sidebar für Autor-Informationen
