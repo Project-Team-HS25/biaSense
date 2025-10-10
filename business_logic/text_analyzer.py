@@ -2,23 +2,20 @@
 
 class TextAnalyzer:
     def __init__(self):
-        self.filler_words = [
-            "like", "just", "really", "very", "actually", "basically", "literally",
-            "seriously", "honestly", "obviously", "clearly", "definitely",
-            "sort", "kind", "maybe", "perhaps", "possibly", "probably",
-            "somewhat", "rather", "quite", "fairly", "pretty",
-            "so", "such", "totally", "completely", "absolutely", "entirely",
-            "extremely", "incredibly", "remarkably", "particularly",
-            "then", "now", "well", "anyway", "meanwhile", "eventually",
-            "somehow", "somewhat", "essentially", "practically", "virtually",
-            "apparently", "seemingly", "supposedly", "allegedly",
-            "anyway", "anyhow", "basically", "essentially", "fundamentally",
-            "simply", "merely", "only", "hardly", "barely", "nearly", "and", "or", "is", "for"
-            ]
+        self.stopwords = None
+        try:
+            import nltk
+            from nltk.corpus import stopwords
+            self.stopwords = set(stopwords.words('english'))
+
+        except Exception as e:
+            print(f"NLTK nicht verfügbar: {e}")
+            print("Verwende manuelle Füllwörter-Liste")
+            self.stopwords = set([])
 
     def extract_filler_words(self, text):
         words = text.split()
-        return [word for word in words if word.lower().strip('.,!?;:') in self.filler_words]
+        return [word for word in words if word.lower().strip('.,!?;:') in self.stopwords]
 
     def remove_filler_words(self, text):
         words = text.split()
@@ -26,7 +23,7 @@ class TextAnalyzer:
         for word in words:
             # Entferne Satzzeichen für Vergleich, aber behalte sie im Wort
             word_clean = word.lower().strip('.,!?;:')
-            if word_clean not in self.filler_words:
+            if word_clean not in self.stopwords:
                 cleaned_words.append(word)
 
         return " ".join(cleaned_words)
