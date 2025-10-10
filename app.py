@@ -1,7 +1,16 @@
-# Streamlit UI für Text Bias Analyzer
-
 import streamlit as st
 from business_logic.text_analyzer import TextAnalyzer
+
+hide_streamlit_style = """
+<style>
+    #MainMenu {visibility: hidden;}
+    footer {visibility: hidden;}
+    .stDeployButton {display:none;}
+    div[data-testid="stStatusWidget"] {display:none;}
+</style>
+"""
+st.markdown(hide_streamlit_style, unsafe_allow_html=True)
+
 
 # Seiten-Konfiguration
 st.set_page_config(
@@ -11,37 +20,46 @@ st.set_page_config(
 )
 
 # Titel und Beschreibung
-st.title("📊 Text Bias Analyzer")
+col1, col2 = st.columns([1, 8])
+with col1:
+    st.image("Logo-Design für biaSense.png", width=100)
+with col2:
+    st.title("Text Bias Analyzer")
 st.markdown("---")
 st.markdown("""
-Analyze your text for stopwords and bias. Enter your text below and discover patterns in writing style.
+Analysiere deinen Text auf Füllwörter und Sentiment basierend auf Adjektiven. Achtung nur englischsprachige Texte können berücksichtigt werden.
 """)
 
-# Sidebar für Autor-Informationen
+# Sidebar für Einstellungen
 with st.sidebar:
-    st.header("👤 Author Information")
-    first_name = st.text_input("First Name:", placeholder="John")
-    last_name = st.text_input("Last Name:", placeholder="Doe")
+    st.header("Einstellungen")
+    show_adjectives = st.checkbox("Zeige die Sentiment-Analyse (Adjektiv-basiert)", value=True)
 
-    st.markdown("---")
-    st.header("⚙️ Settings")
-    show_clean_text = st.checkbox("Show text without filler words", value=True)
+# Autor-Informationen (oberhalb der Texteingabe)
+st.header("Autor:inneninformation")
+author_col1, author_col2 = st.columns(2)
+with author_col1:
+    first_name = st.text_input("Vorname:", placeholder="Max")
+with author_col2:
+    last_name = st.text_input("Nachname:", placeholder="Muster")
+
+st.markdown("---")
 
 # Hauptbereich - Texteingabe
-st.header("📝 Text Input")
+st.header("Texteingabe in Englisch:")
 text = st.text_area(
-    "Enter the text to analyze:",
+    "Gib deinen Text für die Analyse ein:",
     height=200,
-    placeholder="Paste or type your text here...",
-    help="Enter any text you want to analyze for filler words and bias"
+    placeholder="Füge deinen Text hier ein oder schreibe deinen Text hier...",
+    help="Enter any text you want to analyze"
 )
 
 # Analyse-Button
 col1, col2, col3 = st.columns([1, 1, 2])
 with col1:
-    analyze_button = st.button("🔍 Analyze Text", type="primary", use_container_width=True)
+    analyze_button = st.button("Analysiere den Text", type="primary", use_container_width=True)
 with col2:
-    clear_button = st.button("🗑️ Clear", use_container_width=True)
+    clear_button = st.button("Lösche den Text", use_container_width=True)
 
 # Clear-Funktionalität
 if clear_button:
@@ -50,101 +68,97 @@ if clear_button:
 # Analyse durchführen
 if analyze_button:
     if not text.strip():
-        st.error("⚠️ Please enter some text to analyze!")
+        st.error("Stop! Du musst zuerst deinen Text für die Analyse eingeben.")
     else:
         # Analyzer initialisieren
         analyzer = TextAnalyzer()
 
         # Analyse durchführen
-        with st.spinner("Analyzing text..."):
+        with st.spinner("Text wird analysiert..."):
             found_fillers = analyzer.extract_filler_words(text)
             clean_text = analyzer.remove_filler_words(text)
+            adjective_results = analyzer.analyze_adjectives(text)
 
         # Erfolgsmeldung
-        st.success("✅ Analysis complete!")
+        st.success("Analyse komplett.")
 
         st.markdown("---")
 
-        # Ergebnisse in Spalten
-        st.header("📈 Results")
+        # Ergebnisse
+        st.header("Resultate")
 
         # Autor-Info
         author_name = f"{first_name} {last_name}".strip()
         if author_name:
-            st.subheader(f"Author: {author_name}")
+            st.subheader(f"Autor:in: {author_name}")
 
-        # Metriken in Spalten
-        metric_col1, metric_col2, metric_col3, metric_col4 = st.columns(4)
+        # Adjektiv-Analyse
+        if show_adjectives and adjective_results['count'] > 0:
+            st.markdown("---")
+            st.subheader("Sentiment-Analyse (Adjektiv-basiert)")
 
-        with metric_col1:
-            st.metric(
-                label="Text Length",
-                value=f"{len(text)}",
-                help="Total number of characters"
-            )
+            # Sentiment Metriken
+            sent_col1, sent_col2, sent_col3 = st.columns(3)
 
-        with metric_col2:
-            word_count = len(text.split())
-            st.metric(
-                label="Word Count",
-                value=f"{word_count}",
-                help="Total number of words"
-            )
-
-        with metric_col3:
-            st.metric(
-                label="Filler Words",
-                value=f"{len(found_fillers)}",
-                help="Number of filler words found"
-            )
-
-        with metric_col4:
-            if word_count > 0:
-                filler_percentage = (len(found_fillers) / word_count) * 100
+            with sent_col1:
                 st.metric(
-                    label="Filler Rate",
-                    value=f"{filler_percentage:.1f}%",
-                    help="Percentage of filler words"
+                    label="Gefundene Adjektive",
+                    value=adjective_results['count'],
+                    help="Anzahl analysierter Adjektive"
                 )
 
-        # Füllwörter anzeigen
-        if found_fillers:
+            with sent_col2:
+                score = adjective_results['average_score']
+                st.metric(
+                    label="Durchschnittsscore",
+                    value=f"{score} / 100",
+                    help="0 = sehr negativ, 100 = sehr positiv"
+                )
+
+            with sent_col3:
+                sentiment = adjective_results['sentiment']
+                sentiment_emoji = {
+                    'positive': 'Positiv',
+                    'neutral': 'Neutral',
+                    'negative': 'Negativ'
+                }
+                st.metric(
+                    label="Gesamtstimmung",
+                    value=sentiment_emoji.get(sentiment, sentiment),
+                    help="Basierend auf durchschnittlichem Adjektiv-Score"
+                )
+
+            # Liste der gefundenen Adjektive
+            st.markdown("**Gefundene Adjektive:**")
+
+            # Sortiere nach Score (höchste zuerst)
+            sorted_adjectives = sorted(
+                adjective_results['found_adjectives'],
+                key=lambda x: x[1],
+                reverse=True
+            )
+
+            # Zeige in Spalten
+            adj_cols = st.columns(3)
+            for idx, (adj, score) in enumerate(sorted_adjectives):
+                col_idx = idx % 3
+                with adj_cols[col_idx]:
+                    # Farbcodierung
+                    if score >= 80:
+                        color = "🟢"
+                    elif score >= 60:
+                        color = "🟡"
+                    elif score >= 40:
+                        color = "🟠"
+                    else:
+                        color = "🔴"
+
+                    st.write(f"{color} **{adj}**: {score}")
+
+        elif show_adjectives:
             st.markdown("---")
-            st.subheader("🔍 Found Filler Words")
-            st.write(", ".join(found_fillers))
-        else:
-            st.markdown("---")
-            st.info("🎉 No filler words found! Great writing!")
+            st.info("Es wurden keine Adjektive im Text gefunden.")
 
-        # Text ohne Füllwörter
-        if show_clean_text:
-            st.markdown("---")
-            st.subheader("✨ Text Without Filler Words")
-
-            # Vergleich Original vs. Clean
-            tab1, tab2 = st.tabs(["Original Text", "Cleaned Text"])
-
-            with tab1:
-                st.text_area("Original:", value=text, height=200, disabled=True)
-
-            with tab2:
-                st.text_area("Cleaned:", value=clean_text, height=200, disabled=True)
-
-                # Statistik zur Verbesserung
-                words_removed = len(text.split()) - len(clean_text.split())
-                if words_removed > 0:
-                    st.success(f"✂️ Removed {words_removed} filler words!")
-
-        # Bias Scores (Placeholder für später)
-        st.markdown("---")
-        st.subheader("🎯 Bias Scores")
-        st.info("💡 Bias scoring feature coming soon! This will analyze political and gender bias in the text.")
-
-        bias_col1, bias_col2 = st.columns(2)
-        with bias_col1:
-            st.metric("Politics Bias", "0.0", help="Coming soon: -1 (left) to +1 (right)")
-        with bias_col2:
-            st.metric("Gender Bias", "0.0", help="Coming soon: -1 (female) to +1 (male)")
 
 # Footer
 st.markdown("---")
