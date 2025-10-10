@@ -5,11 +5,6 @@ import input_helper
 import nltk
 from nltk.corpus import stopwords
 
-#dieser Codeblock lädt die nötigen nltk Resourcen herunter (nur einmalig notwendig)
-nltk.download("punkt")
-nltk.download("punkt_tab")
-nltk.download("stopwords")
-
 inputtext = input_helper.input_valid_string("Bitte Text übermitteln:")
 
 # Mit spacy library ----------------------------------------------------------------------------------------
