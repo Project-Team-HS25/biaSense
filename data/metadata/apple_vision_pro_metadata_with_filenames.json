@@ -1,0 +1,59 @@
+[
+  {
+    "id": 1,
+    "title": "Apple Vision Pro left me optimistic about 'spatial' computing",
+    "source": "The Washington Post",
+    "url": "https://www.washingtonpost.com/technology/2023/06/06/apple-vision-pro-review/",
+    "tone": "positive",
+    "topic": "Apple Vision Pro",
+    "summary": "Positive review highlighting innovation and immersive experience; author describes the headset as mesmerizing and thrilling.",
+    "keywords": [
+      "Apple",
+      "Vision Pro",
+      "AR",
+      "positive",
+      "innovation",
+      "immersive",
+      "optimistic"
+    ],
+    "filename": "apple_vision_pro_positive.txt"
+  },
+  {
+    "id": 2,
+    "title": "Apple unveils costly Vision Pro headset in risky move into new market",
+    "source": "Reuters",
+    "url": "https://www.reuters.com/technology/apple-unveils-costly-vision-pro-headset-risky-move-into-new-market-2023-06-05/",
+    "tone": "neutral",
+    "topic": "Apple Vision Pro",
+    "summary": "Objective report focusing on market data, analyst opinions, and price comparison; factual and balanced language.",
+    "keywords": [
+      "Apple",
+      "Vision Pro",
+      "AR",
+      "neutral",
+      "news",
+      "market",
+      "risk"
+    ],
+    "filename": "apple_vision_pro_neutral.txt"
+  },
+  {
+    "id": 3,
+    "title": "Apple\u2019s Vision Pro headset frightened me \u2013 and it should scare you too",
+    "source": "The Guardian",
+    "url": "https://www.theguardian.com/commentisfree/2023/jun/06/apple-vision-pro-headset-ar-future",
+    "tone": "negative",
+    "topic": "Apple Vision Pro",
+    "summary": "Critical opinion piece warning about social and ethical risks; author uses fearful and cautionary language.",
+    "keywords": [
+      "Apple",
+      "Vision Pro",
+      "AR",
+      "negative",
+      "opinion",
+      "social impact",
+      "fear"
+    ],
+    "filename": "apple_vision_pro_negative.txt"
+  }
+]
