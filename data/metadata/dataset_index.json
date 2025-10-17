@@ -1,0 +1,34 @@
+[
+  {
+    "id": "apple_vision_pro_negative",
+    "source_path": "data/raw/apple_vision_pro_negative.txt",
+    "label": "negative",
+    "language": "en",
+    "topic": "apple_vision_pro",
+    "split": "train"
+  },
+  {
+    "id": "apple_vision_pro_neutral",
+    "source_path": "data/raw/apple_vision_pro_neutral.txt",
+    "label": "neutral",
+    "language": "en",
+    "topic": "apple_vision_pro",
+    "split": "train"
+  },
+  {
+    "id": "apple_vision_pro_positive",
+    "source_path": "data/raw/apple_vision_pro_positive.txt",
+    "label": "positive",
+    "language": "en",
+    "topic": "apple_vision_pro",
+    "split": "train"
+  },
+  {
+    "id": "my_new_article",
+    "source_path": "data/raw/my_new_article.txt",
+    "label": "",
+    "language": "en",
+    "topic": "economy",
+    "split": "test"
+  }
+]
