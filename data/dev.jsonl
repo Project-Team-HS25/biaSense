@@ -1,0 +1,10 @@
+{"text":"I am very happy with this purchase.","cats":{"pos":1.0,"neg":0.0,"neu":0.0}}
+{"text":"Terrible user experience.","cats":{"pos":0.0,"neg":1.0,"neu":0.0}}
+{"text":"It works fine, no issues so far.","cats":{"pos":0.0,"neg":0.0,"neu":1.0}}
+{"text":"The product exceeded my expectations.","cats":{"pos":1.0,"neg":0.0,"neu":0.0}}
+{"text":"I regret buying this.","cats":{"pos":0.0,"neg":1.0,"neu":0.0}}
+{"text":"Feels average, could be better.","cats":{"pos":0.0,"neg":0.0,"neu":1.0}}
+{"text":"Great service and fast delivery.","cats":{"pos":1.0,"neg":0.0,"neu":0.0}}
+{"text":"Very low quality for the price.","cats":{"pos":0.0,"neg":1.0,"neu":0.0}}
+{"text":"Nothing special but works.","cats":{"pos":0.0,"neg":0.0,"neu":1.0}}
+{"text":"I would buy this again.","cats":{"pos":1.0,"neg":0.0,"neu":0.0}}
