@@ -105,6 +105,6 @@ python run_pipeline.py
 Fertig.
 Kurzer Starttest:
 
-python train_sentiment.py
+python train_sentiment.py 
 
 python run_pipeline.py

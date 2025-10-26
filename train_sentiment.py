@@ -1,5 +1,8 @@
 import spacy
 from spacy.tokens import DocBin
+from spacy.training import Example
+from spacy.util import minibatch
+import random
 from pathlib import Path # Ptahlib ist eine Standardbibliothek in Python zur Arbeit mit Dateipfaden. (keine NLP-spezifische Bibliothek)
 
 # Hilfsfunktion zum Einlesen von JSONL-Dateien
@@ -16,6 +19,9 @@ def make_docbin(nlp, path):
         doc.cats = ex["cats"]            # Ziel-Labels an das Doc haengen cats = {'pos': 1, 'neg': 0, 'neu': 0} (wird für spacy TextCat benötigt)
         db.add(doc)
     return db
+
+# Hauptfunktion zum Trainieren eines Sentiment-Analyse-Modells 
+# Das Modell wird auf Basis eines einfachen neuronalen Netzes (TextCat) trainiert und lernt die Zuordnung von Texten zu Sentiment-Kategorien (positiv, negativ, neutral).
 
 def main():
     # 1. Tokenizer aus einem bestehenden englischen Modell uebernehmen
@@ -39,14 +45,24 @@ def main():
 
     # 4. Parameter initialisieren
     # aufsetzen des modells für das Training (Initialisierung der Gewichte, definieren der Zielvariablen "cats" : {'pos': 0, 'neg': 0, 'neu': 0} )
-    optimizer = nlp.initialize(get_examples=lambda: ((d, {"cats": d.cats}) for d in train_docs))
+    optimizer = nlp.initialize(
+        get_examples=lambda: (Example.from_dict(d, {"cats": d.cats}) for d in train_docs)
+    )
 
-    # 5. Einfacher Trainingsloop
-    for epoch in range(10): # 10 mal die ganzen Trainingsdaten durchlaufen (10 Epochen) (aufpassen! overfitting oder underfitting möglich)
-        losses = {} # Dictionary zum Speichern der Verluste / Fehler (losses) während des Trainings
-        for d in train_docs:
-            nlp.update([(d, {"cats": d.cats})], sgd=optimizer, losses=losses) # Modell wird mit den Trainingsdaten trainiert, die Gewichte werden angepasst und die Verluste (losses) gespeichert
-        print(f"epoch {epoch} loss {losses.get('textcat', 0):.2f}") # Ausgabe des Verlusts (loss) für die Textklassifikationskomponente nach jeder Epoche (loss unter 0.5 ist gut)
+
+    # 5. Trainingsloop mit Minibatches, Shuffle
+    # Hinweis: zu viele Epochen -> Overfitting, zu wenige -> Underfitting
+    for epoch in range(5):  # 5 Durchläufe (Epochen) über den gesamten Trainingssatz
+        random.shuffle(train_docs)  # Reihenfolge mischen, verhindert das Modell sich zu sehr auf die Reihenfolge der Daten einzustellen (reduziert Overfitting)
+        losses = {}  # sammelt Verluste pro Komponente (hier: "textcat")
+
+        # in Batches trainieren für stabilere Updates und bessere Generalisierung (reduziert Overfitting)
+        for batch in minibatch(train_docs, size=16): # Batch-Größe (wie viele Docs werden pro Update verarbeitet)
+            examples = [Example.from_dict(d, {"cats": d.cats}) for d in batch]
+            nlp.update(examples, sgd=optimizer, losses=losses)
+
+        print(f"epoch {epoch} loss {losses.get('textcat', 0):.6f}")
+
 
     # 6. Speichern
     Path("models").mkdir(exist_ok=True) # Erstellen des Ordners "models", falls er noch nicht existiert
