@@ -7,6 +7,13 @@ hide_streamlit_style = """
     footer {visibility: hidden;}
     .stDeployButton {display:none;}
     div[data-testid="stStatusWidget"] {display:none;}
+    
+    /* Sidebar breiter machen */
+    [data-testid="stSidebar"] {
+        min-width: 350px;
+        max-width: 350px;
+    }
+
 </style>
 """
 st.markdown(hide_streamlit_style, unsafe_allow_html=True)
@@ -14,7 +21,7 @@ st.markdown(hide_streamlit_style, unsafe_allow_html=True)
 
 # Seiten-Konfiguration
 st.set_page_config(
-    page_title="Text Bias Analyzer",
+    page_title="Text Bias Analyzer (Sentiment-Analyse)",
     page_icon="📊",
     layout="wide"
 )
@@ -24,17 +31,20 @@ col1, col2 = st.columns([1, 8])
 with col1:
     st.image("Logo-Design für biaSense.png", width=100)
 with col2:
-    st.title("Text Bias Analyzer")
+    st.title("Text Analyzer")
 st.markdown("---")
 st.markdown("""
-Analysiere deinen Text basierend auf Adjektiven und/oder Verben. Achtung nur englischsprachige Texte können berücksichtigt werden.
+Analysiere deinen Text basierend auf Adjektiven und/oder Verben. Achtung: Nur englischsprachige Texte können berücksichtigt werden.
+Die Analyse verwendet Lemmatisierung, um verschiedene Wortformen zu erkennen (z.B. "running" → "run", "loved" → "love").
 """)
 
 # Sidebar für Einstellungen
 with st.sidebar:
     st.header("Einstellungen")
-    show_adjectives = st.checkbox("Zeige die Adjektiv-Analyse", value=True)
-    show_verbs = st.checkbox("Zeige die Verb-Analyse", value=True)
+    show_adjectives = st.checkbox("Sentiment-Analyse Adjektive", value=True)
+    show_verbs = st.checkbox("Sentiment-Analyse Verben", value=True)
+    show_lemmatization = st.checkbox("Zeige Lemmatisierung", value=False, help="Zeigt wie Wörter auf ihre Grundform reduziert werden")
+
 
 # Autor-Informationen (oberhalb der Texteingabe)
 st.header("Autor:inneninformation")
@@ -50,7 +60,7 @@ st.markdown("---")
 st.header("Texteingabe in Englisch:")
 text = st.text_area(
     "Gib deinen Text für die Analyse ein:",
-    height=200,
+    height=300,
     placeholder="Füge deinen Text hier ein oder schreibe deinen Text hier...",
     help="Enter any text you want to analyze"
 )
@@ -81,10 +91,34 @@ if analyze_button:
             adjective_results = analyzer.analyze_adjectives(text)
             verb_results = analyzer.analyze_verbs(text)
 
+            # Lemmatisierung für Anzeige (optional)
+            if show_lemmatization:
+                lemmatized = analyzer.lemmatize_text(text)
+
         # Erfolgsmeldung
         st.success("Analyse abgeschlossen.")
 
         st.markdown("---")
+
+        # Lemmatisierung anzeigen (optional)
+        if show_lemmatization:
+            st.header("Lemmatisierung")
+            st.markdown("**Wortformen, die auf ihre Grundform reduziert wurden:**")
+
+            lemma_changes = [(orig, lemma) for orig, lemma in lemmatized
+                             if orig.lower().strip('.,!?;:') != lemma]
+
+            if lemma_changes:
+                # Zeige in Spalten
+                lemma_cols = st.columns(4)
+                for idx, (original, lemma) in enumerate(lemma_changes):
+                    col_idx = idx % 4
+                    with lemma_cols[col_idx]:
+                        st.write(f"**{original}** → {lemma}")
+            else:
+                st.info("Keine Lemmatisierung nötig - alle Wörter sind bereits in Grundform.")
+
+            st.markdown("---")
 
         # Ergebnisse
         st.header("Resultate")
@@ -106,7 +140,7 @@ if analyze_button:
                 st.metric(
                     label="Gefundene Adjektive",
                     value=adjective_results['count'],
-                    help="Anzahl analysierter Adjektive"
+                    help="Anzahl analysierter Adjektive (Lemmas)"
                 )
 
             with sent_col2:
@@ -142,7 +176,7 @@ if analyze_button:
 
             # Zeige in Spalten
             adj_cols = st.columns(3)
-            for idx, (adj, score, count) in enumerate(sorted_adjectives):
+            for idx, (adj, score, count, originals) in enumerate(sorted_adjectives):
                 col_idx = idx % 3
                 with adj_cols[col_idx]:
                     # Farbcodierung
@@ -173,7 +207,7 @@ if analyze_button:
                 st.metric(
                     label="Gefundene Verben",
                     value=verb_results['count'],
-                    help="Anzahl analysierter Verben"
+                    help="Anzahl analysierter Verben (Lemmas)"
                 )
 
             with verb_col2:
@@ -209,7 +243,7 @@ if analyze_button:
 
             # Zeige in Spalten
             verb_cols = st.columns(3)
-            for idx, (verb, score, count) in enumerate(sorted_verbs):
+            for idx, (verb, score, count, originals) in enumerate(sorted_verbs):
                 col_idx = idx % 3
                 with verb_cols[col_idx]:
                     if score >= 80:
@@ -261,13 +295,10 @@ if analyze_button:
                     help="Durchschnitt aus Adjektiv- und Verb-Sentiment"
                 )
 
-
-
-
 # Footer
 st.markdown("---")
 st.markdown("""
 <div style='text-align: center; color: gray;'>
-    <p>Text Bias Analyzer v1.0 | Built with Streamlit</p>
+    <p>Text Bias Analyzer v2.0 mit Lemmatisierung | Built with Streamlit</p>
 </div>
 """, unsafe_allow_html=True)
