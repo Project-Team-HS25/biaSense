@@ -10,8 +10,8 @@ hide_streamlit_style = """
     
     /* Sidebar breiter machen */
     [data-testid="stSidebar"] {
-        min-width: 350px;
-        max-width: 350px;
+        min-width: 300px;
+        max-width: 300px;
     }
 
 </style>
@@ -43,7 +43,7 @@ with st.sidebar:
     st.header("Einstellungen")
     show_adjectives = st.checkbox("Sentiment-Analyse Adjektive", value=True)
     show_verbs = st.checkbox("Sentiment-Analyse Verben", value=True)
-    show_lemmatization = st.checkbox("Zeige Lemmatisierung", value=False, help="Zeigt wie Wörter auf ihre Grundform reduziert werden")
+    show_lemmatization = st.checkbox("Zeige Lemmatisierung", value=True, help="Zeigt wie Wörter auf ihre Grundform reduziert werden")
 
 
 # Autor-Informationen (oberhalb der Texteingabe)
@@ -100,6 +100,15 @@ if analyze_button:
 
         st.markdown("---")
 
+        # Ergebnisse
+        st.header("Resultate")
+
+        # Autor-Info
+        author_name = f"{first_name} {last_name}".strip()
+        if author_name:
+            st.subheader(f"Autor:in: {author_name}")
+
+
         # Lemmatisierung anzeigen (optional)
         if show_lemmatization:
             st.header("Lemmatisierung")
@@ -117,16 +126,6 @@ if analyze_button:
                         st.write(f"**{original}** → {lemma}")
             else:
                 st.info("Keine Lemmatisierung nötig - alle Wörter sind bereits in Grundform.")
-
-            st.markdown("---")
-
-        # Ergebnisse
-        st.header("Resultate")
-
-        # Autor-Info
-        author_name = f"{first_name} {last_name}".strip()
-        if author_name:
-            st.subheader(f"Autor:in: {author_name}")
 
         # Adjektiv-Analyse
         if show_adjectives and adjective_results['count'] > 0:
