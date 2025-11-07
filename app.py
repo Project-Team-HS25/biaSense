@@ -118,12 +118,27 @@ if analyze_button:
                              if orig.lower().strip('.,!?;:') != lemma]
 
             if lemma_changes:
+                # Gruppiere und zähle die Lemmatisierungen
+                lemma_counts = {}
+                for original, lemma in lemma_changes:
+                    key = (original.lower().strip('.,!?;:'), lemma)
+                    if key in lemma_counts:
+                        lemma_counts[key] += 1
+                    else:
+                        lemma_counts[key] = 1
+
+                # Sortiere nach Häufigkeit (absteigend)
+                sorted_lemmas = sorted(lemma_counts.items(), key=lambda x: x[1], reverse=True)
+
                 # Zeige in Spalten
                 lemma_cols = st.columns(4)
-                for idx, (original, lemma) in enumerate(lemma_changes):
+                for idx, ((original, lemma), count) in enumerate(sorted_lemmas):
                     col_idx = idx % 4
                     with lemma_cols[col_idx]:
-                        st.write(f"**{original}** → {lemma}")
+                        if count > 1:
+                            st.write(f"**{original}** ({count}x) → {lemma}")
+                        else:
+                            st.write(f"**{original}** → {lemma}")
             else:
                 st.info("Keine Lemmatisierung nötig - alle Wörter sind bereits in Grundform.")
 
