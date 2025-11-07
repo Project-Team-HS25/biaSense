@@ -1,104 +1,336 @@
-form,lemma,description
-am,be,Präsens (1. Person Singular)
-is,be,Präsens (3. Person Singular)
-are,be,Präsens (Plural)
-was,be,Vergangenheit (Singular)
-were,be,Vergangenheit (Plural)
-been,be,Partizip Perfekt
-being,be,Partizip Präsens
-has,have,Präsens (3. Person Singular)
-have,have,Präsens
-had,have,Vergangenheit
-do,do,Präsens
-does,do,Präsens (3. Person Singular)
-did,do,Vergangenheit
-done,do,Partizip Perfekt
-doing,do,Partizip Präsens
-go,go,Präsens
-goes,go,Präsens (3. Person Singular)
-went,go,Vergangenheit
-gone,go,Partizip Perfekt
-get,get,Präsens
-gets,get,Präsens (3. Person Singular)
-got,get,Vergangenheit
-gotten,get,Partizip Perfekt (amerikanisch)
-make,make,Präsens
-makes,make,Präsens (3. Person Singular)
-made,make,Vergangenheit
-made,make,Partizip Perfekt
-say,say,Präsens
-says,say,Präsens (3. Person Singular)
-said,say,Vergangenheit
-said,say,Partizip Perfekt
-see,see,Präsens
-sees,see,Präsens (3. Person Singular)
-saw,see,Vergangenheit
-seen,see,Partizip Perfekt
-take,take,Präsens
-takes,take,Präsens (3. Person Singular)
-took,take,Vergangenheit
-taken,take,Partizip Perfekt
-come,come,Präsens
-comes,come,Präsens (3. Person Singular)
-came,come,Vergangenheit
-come,come,Partizip Perfekt
-run,run,Präsens
-runs,run,Präsens (3. Person Singular)
-ran,run,Vergangenheit
-run,run,Partizip Perfekt
-know,know,Präsens
-knows,know,Präsens (3. Person Singular)
-knew,know,Vergangenheit
-known,know,Partizip Perfekt
-think,think,Präsens
-thinks,think,Präsens (3. Person Singular)
-thought,think,Vergangenheit
-thought,think,Partizip Perfekt
-give,give,Präsens
-gives,give,Präsens (3. Person Singular)
-gave,give,Vergangenheit
-given,give,Partizip Perfekt
-find,find,Präsens
-finds,find,Präsens (3. Person Singular)
-found,find,Vergangenheit
-found,find,Partizip Perfekt
-feel,feel,Präsens
-feels,feel,Präsens (3. Person Singular)
-felt,feel,Vergangenheit
-felt,feel,Partizip Perfekt
-tell,tell,Präsens
-tells,tell,Präsens (3. Person Singular)
-told,tell,Vergangenheit
-told,tell,Partizip Perfekt
-begin,begin,Präsens
-begins,begin,Präsens (3. Person Singular)
-began,begin,Vergangenheit
-begun,begin,Partizip Perfekt
-bring,bring,Präsens
-brings,bring,Präsens (3. Person Singular)
-brought,bring,Vergangenheit
-brought,bring,Partizip Perfekt
-write,write,Präsens
-writes,write,Präsens (3. Person Singular)
-wrote,write,Vergangenheit
-written,write,Partizip Perfekt
-sit,sit,Präsens
-sits,sit,Präsens (3. Person Singular)
-sat,sit,Vergangenheit
-sat,sit,Partizip Perfekt
-speak,speak,Präsens
-speaks,speak,Präsens (3. Person Singular)
-spoke,speak,Vergangenheit
-spoken,speak,Partizip Perfekt
-eat,eat,Präsens
-eats,eat,Präsens (3. Person Singular)
-ate,eat,Vergangenheit
-eaten,eat,Partizip Perfekt
-drink,drink,Präsens
-drinks,drink,Präsens (3. Person Singular)
-drank,drink,Vergangenheit
-drunk,drink,Partizip Perfekt
-sleep,sleep,Präsens
-sleeps,sleep,Präsens (3. Person Singular)
-slept,sleep,Vergangenheit
-slept,sleep,Partizip Perfekt
+form,lemma
+hated,hate
+hating,hate
+hates,hate
+destroyed,destroy
+destroying,destroy
+destroys,destroy
+killed,kill
+killing,kill
+kills,kill
+hurt,hurt
+hurting,hurt
+hurts,hurt
+damaged,damage
+damaging,damage
+damages,damage
+failed,fail
+failing,fail
+fails,fail
+lost,lose
+losing,lose
+loses,lose
+broke,break
+broken,break
+breaking,break
+breaks,break
+cried,cry
+crying,cry
+cries,cry
+feared,fear
+fearing,fear
+fears,fear
+worried,worry
+worrying,worry
+worries,worry
+suffered,suffer
+suffering,suffer
+suffers,suffer
+died,die
+dying,die
+dies,die
+fell,fall
+fallen,fall
+falling,fall
+falls,fall
+fought,fight
+fighting,fight
+fights,fight
+attacked,attack
+attacking,attack
+attacks,attack
+stole,steal
+stolen,steal
+stealing,steal
+steals,steal
+lied,lie
+lying,lie
+lies,lie
+cheated,cheat
+cheating,cheat
+cheats,cheat
+betrayed,betray
+betraying,betray
+betrays,betray
+abandoned,abandon
+abandoning,abandon
+abandons,abandon
+rejected,reject
+rejecting,reject
+rejects,reject
+criticized,criticize
+criticizing,criticize
+criticizes,criticize
+blamed,blame
+blaming,blame
+blames,blame
+punished,punish
+punishing,punish
+punishes,punish
+disappointed,disappoint
+disappointing,disappoint
+disappoints,disappoint
+regretted,regret
+regretting,regret
+regrets,regret
+doubted,doubt
+doubting,doubt
+doubts,doubt
+struggled,struggle
+struggling,struggle
+struggles,struggle
+complained,complain
+complaining,complain
+complains,complain
+argued,argue
+arguing,argue
+argues,argue
+hesitated,hesitate
+hesitating,hesitate
+hesitates,hesitate
+questioned,question
+questioning,question
+questions,question
+stopped,stop
+stopping,stop
+stops,stop
+waited,wait
+waiting,wait
+waits,wait
+sat,sit
+sitting,sit
+sits,sit
+stood,stand
+standing,stand
+stands,stand
+walked,walk
+walking,walk
+walks,walk
+ran,run
+running,run
+runs,run
+moved,move
+moving,move
+moves,move
+worked,work
+working,work
+works,work
+tried,try
+trying,try
+tries,try
+made,make
+making,make
+makes,make
+did,do
+done,do
+doing,do
+does,do
+used,use
+using,use
+uses,use
+took,take
+taken,take
+taking,take
+takes,take
+gave,give
+given,give
+giving,give
+gives,give
+got,get
+gotten,get
+getting,get
+gets,get
+went,go
+gone,go
+going,go
+goes,go
+came,come
+coming,come
+comes,come
+saw,see
+seen,see
+seeing,see
+sees,see
+knew,know
+known,know
+knowing,know
+knows,know
+thought,think
+thinking,think
+thinks,think
+felt,feel
+feeling,feel
+feels,feel
+wanted,want
+wanting,want
+wants,want
+needed,need
+needing,need
+needs,need
+said,say
+saying,say
+says,say
+told,tell
+telling,tell
+tells,tell
+asked,ask
+asking,ask
+asks,ask
+answered,answer
+answering,answer
+answers,answer
+talked,talk
+talking,talk
+talks,talk
+spoke,speak
+spoken,speak
+speaking,speak
+speaks,speak
+listened,listen
+listening,listen
+listens,listen
+heard,hear
+hearing,hear
+hears,hear
+read,read
+reading,read
+reads,read
+wrote,write
+written,write
+writing,write
+writes,write
+learned,learn
+learnt,learn
+learning,learn
+learns,learn
+taught,teach
+teaching,teach
+teaches,teach
+studied,study
+studying,study
+studies,study
+understood,understand
+understanding,understand
+understands,understand
+helped,help
+helping,help
+helps,help
+supported,support
+supporting,support
+supports,support
+cared,care
+caring,care
+cares,care
+loved,love
+loving,love
+loves,love
+enjoyed,enjoy
+enjoying,enjoy
+enjoys,enjoy
+liked,like
+liking,like
+likes,like
+preferred,prefer
+preferring,prefer
+prefers,prefer
+chose,choose
+chosen,choose
+choosing,choose
+chooses,choose
+decided,decide
+deciding,decide
+decides,decide
+planned,plan
+planning,plan
+plans,plan
+hoped,hope
+hoping,hope
+hopes,hope
+wished,wish
+wishing,wish
+wishes,wish
+dreamed,dream
+dreamt,dream
+dreaming,dream
+dreams,dream
+believed,believe
+believing,believe
+believes,believe
+trusted,trust
+trusting,trust
+trusts,trust
+respected,respect
+respecting,respect
+respects,respect
+appreciated,appreciate
+appreciating,appreciate
+appreciates,appreciate
+valued,value
+valuing,value
+values,value
+celebrated,celebrate
+celebrating,celebrate
+celebrates,celebrate
+achieved,achieve
+achieving,achieve
+achieves,achieve
+succeeded,succeed
+succeeding,succeed
+succeeds,succeed
+won,win
+winning,win
+wins,win
+improved,improve
+improving,improve
+improves,improve
+grew,grow
+grown,grow
+growing,grow
+grows,grow
+developed,develop
+developing,develop
+develops,develop
+created,create
+creating,create
+creates,create
+built,build
+building,build
+builds,build
+inspired,inspire
+inspiring,inspire
+inspires,inspire
+encouraged,encourage
+encouraging,encourage
+encourages,encourage
+motivated,motivate
+motivating,motivate
+motivates,motivate
+empowered,empower
+empowering,empower
+empowers,empower
+smiled,smile
+smiling,smile
+smiles,smile
+laughed,laugh
+laughing,laugh
+laughs,laugh
+played,play
+playing,play
+plays,play
+danced,dance
+dancing,dance
+dances,dance
+sang,sing
+sung,sing
+singing,sing
+sings,sing

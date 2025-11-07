@@ -1,97 +1,203 @@
-form,lemma,description
-better,good,Komparativ
-best,good,Superlativ
-worse,bad,Komparativ
-worst,bad,Superlativ
-more,much,Komparativ
-most,much,Superlativ
-less,little,Komparativ
-least,little,Superlativ
-further,far,Komparativ
-furthest,far,Superlativ
-farther,far,Komparativ (alternativ)
-farthest,far,Superlativ (alternativ)
-elder,old,Komparativ
-eldest,old,Superlativ
-older,old,Komparativ (regulär)
-oldest,old,Superlativ (regulär)
-bigger,big,Komparativ
-biggest,big,Superlativ
-smaller,small,Komparativ
-smallest,small,Superlativ
-larger,large,Komparativ
-largest,large,Superlativ
-longer,long,Komparativ
-longest,long,Superlativ
-shorter,short,Komparativ
-shortest,short,Superlativ
-faster,fast,Komparativ
-fastest,fast,Superlativ
-slower,slow,Komparativ
-slowest,slow,Superlativ
-higher,high,Komparativ
-highest,high,Superlativ
-lower,low,Komparativ
-lowest,low,Superlativ
-stronger,strong,Komparativ
-strongest,strong,Superlativ
-weaker,weak,Komparativ
-weakest,weak,Superlativ
-younger,young,Komparativ
-youngest,young,Superlativ
-newer,new,Komparativ
-newest,new,Superlativ
-cleaner,clean,Komparativ
-cleanest,clean,Superlativ
-darker,dark,Komparativ
-darkest,dark,Superlativ
-lighter,light,Komparativ
-lightest,light,Superlativ
-brighter,bright,Komparativ
-brightest,bright,Superlativ
-softer,soft,Komparativ
-softest,soft,Superlativ
-harder,hard,Komparativ
-hardest,hard,Superlativ
-deeper,deep,Komparativ
-deepest,deep,Superlativ
-wider,wide,Komparativ
-widest,wide,Superlativ
-nicer,nice,Komparativ
-nicest,nice,Superlativ
-finer,fine,Komparativ
-finest,fine,Superlativ
-closer,close,Komparativ
-closest,close,Superlativ
-safer,safe,Komparativ
-safest,safe,Superlativ
-stranger,strange,Komparativ
-strangest,strange,Superlativ
-simpler,simple,Komparativ
-simplest,simple,Superlativ
-gentler,gentle,Komparativ
-gentlest,gentle,Superlativ
-happier,happy,Komparativ
-happiest,happy,Superlativ
-angrier,angry,Komparativ
-angriest,angry,Superlativ
-busier,busy,Komparativ
-busiest,busy,Superlativ
-easier,easy,Komparativ
-easiest,easy,Superlativ
-prettier,pretty,Komparativ
-prettiest,pretty,Superlativ
-funnier,funny,Komparativ
-funniest,funny,Superlativ
-heavier,heavy,Komparativ
-heaviest,heavy,Superlativ
-luckier,lucky,Komparativ
-luckiest,lucky,Superlativ
-healthier,healthy,Komparativ
-healthiest,healthy,Superlativ
-wealthier,wealthy,Komparativ
-wealthiest,wealthy,Superlativ
-dirtier,dirty,Komparativ
-dirtiest,dirty,Superlativ
-emptier,empty,Komparativ
-emptiest,empty,Superlativ
+form,lemma
+worse,bad
+worst,bad
+badder,bad
+baddest,bad
+sadder,sad
+saddest,sad
+angrier,angry
+angriest,angry
+more dangerous,dangerous
+most dangerous,dangerous
+more negative,negative
+most negative,negative
+more difficult,difficult
+most difficult,difficult
+poorer,poor
+poorest,poor
+worse,wrong
+worst,wrong
+weaker,weak
+weakest,weak
+older,old
+oldest,old
+elder,old
+eldest,old
+slower,slow
+slowest,slow
+darker,dark
+darkest,dark
+colder,cold
+coldest,cold
+emptier,empty
+emptiest,empty
+harder,hard
+hardest,hard
+smaller,small
+smallest,small
+shorter,short
+shortest,short
+dirtier,dirty
+dirtiest,dirty
+uglier,ugly
+ugliest,ugly
+more afraid,afraid
+most afraid,afraid
+more worried,worried
+most worried,worried
+more confused,confused
+most confused,confused
+more tired,tired
+most tired,tired
+sicker,sick
+sickest,sick
+more boring,boring
+most boring,boring
+stranger,strange
+strangest,strange
+quieter,quiet
+quietest,quiet
+more acceptable,acceptable
+most acceptable,acceptable
+more normal,normal
+most normal,normal
+more different,different
+most different,different
+more possible,possible
+most possible,possible
+simpler,simple
+simplest,simple
+more certain,certain
+most certain,certain
+clearer,clear
+clearest,clear
+more correct,correct
+most correct,correct
+more available,available
+most available,available
+more actual,actual
+most actual,actual
+more basic,basic
+most basic,basic
+more common,common
+most common,common
+more complete,complete
+most complete,complete
+more current,current
+most current,current
+more general,general
+most general,general
+more main,main
+most main,main
+more real,real
+most real,real
+more similar,similar
+most similar,similar
+more specific,specific
+most specific,specific
+surer,sure
+surest,sure
+more typical,typical
+most typical,typical
+more usual,usual
+most usual,usual
+better,good
+best,good
+greater,great
+greatest,great
+more excellent,excellent
+most excellent,excellent
+more wonderful,wonderful
+most wonderful,wonderful
+more amazing,amazing
+most amazing,amazing
+more beautiful,beautiful
+most beautiful,beautiful
+happier,happy
+happiest,happy
+nicer,nice
+nicest,nice
+lovelier,lovely
+loveliest,lovely
+more perfect,perfect
+most perfect,perfect
+more fantastic,fantastic
+most fantastic,fantastic
+more awesome,awesome
+most awesome,awesome
+more brilliant,brilliant
+most brilliant,brilliant
+easier,easy
+easiest,easy
+newer,new
+newest,new
+bigger,big
+biggest,big
+larger,large
+largest,large
+longer,long
+longest,long
+higher,high
+highest,high
+stronger,strong
+strongest,strong
+younger,young
+youngest,young
+faster,fast
+fastest,fast
+brighter,bright
+brightest,bright
+cleaner,clean
+cleanest,clean
+safer,safe
+safest,safe
+closer,close
+closest,close
+finer,fine
+finest,fine
+prettier,pretty
+prettiest,pretty
+funnier,funny
+funniest,funny
+healthier,healthy
+healthiest,healthy
+wealthier,wealthy
+wealthiest,wealthy
+more important,important
+most important,important
+more interesting,interesting
+most interesting,interesting
+more special,special
+most special,special
+more popular,popular
+most popular,popular
+more famous,famous
+most famous,famous
+truer,true
+truest,true
+kinder,kind
+kindest,kind
+freer,free
+freest,free
+warmer,warm
+warmest,warm
+cooler,cool
+coolest,cool
+fresher,fresh
+freshest,fresh
+sweeter,sweet
+sweetest,sweet
+richer,rich
+richest,rich
+smarter,smart
+smartest,smart
+wiser,wise
+wisest,wise
+braver,brave
+bravest,brave
+more honest,honest
+most honest,honest
+fairer,fair
+fairest,fair
+righter,right
+rightest,right
