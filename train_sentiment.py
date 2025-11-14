@@ -3,6 +3,7 @@ from spacy.tokens import DocBin
 from spacy.training import Example
 from spacy.util import minibatch
 import random
+import numpy as np
 from pathlib import Path # Ptahlib ist eine Standardbibliothek in Python zur Arbeit mit Dateipfaden. (keine NLP-spezifische Bibliothek)
 
 # Hilfsfunktion zum Einlesen von JSONL-Dateien
@@ -11,7 +12,7 @@ def read_jsonl(path):
     for line in Path(path).read_text(encoding="utf-8").splitlines():
         yield json.loads(line)
 
-# DocBin (serialisierte Sammlung von Docs) aus JSONL-Daten erstellen, lässt sich schnell in spaCy laden (gut für große Datensätze)
+# DocBin (serialisierte Sammlung von Docs) aus JSONL-Daten erstellen, lässt sich schnell in spaCy laden (gut für grosse Datensätze)
 def make_docbin(nlp, path):
     db = DocBin()
     for ex in read_jsonl(path):
@@ -38,8 +39,8 @@ def main():
     textcat.add_label("neu")
 
     # 3. Trainings- und Dev-Daten laden
-    train_db = make_docbin(nlp, "data/train.jsonl")
-    dev_db = make_docbin(nlp, "data/dev.jsonl")
+    train_db = make_docbin(nlp, "data/sentiment_train.jsonl")
+    dev_db = make_docbin(nlp, "data/sentiment_dev.jsonl")
     train_docs = list(train_db.get_docs(nlp.vocab)) # umwandeln der komprimierten DocBin-Daten in eine Liste von Doc-Objekten
     dev_docs = list(dev_db.get_docs(nlp.vocab)) # das gleiche für die Dev-Daten
 
@@ -50,9 +51,10 @@ def main():
     )
 
 
+
     # 5. Trainingsloop mit Minibatches, Shuffle
     # Hinweis: zu viele Epochen -> Overfitting, zu wenige -> Underfitting
-    for epoch in range(5):  # 5 Durchläufe (Epochen) über den gesamten Trainingssatz
+    for epoch in range(10):  # 5 Durchläufe (Epochen) über den gesamten Trainingssatz
         random.shuffle(train_docs)  # Reihenfolge mischen, verhindert das Modell sich zu sehr auf die Reihenfolge der Daten einzustellen (reduziert Overfitting)
         losses = {}  # sammelt Verluste pro Komponente (hier: "textcat")
 

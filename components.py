@@ -6,7 +6,7 @@ from spacy.tokens import Doc
 # 1. Frame-Definitionen: einfache Wortlisten je Frame (serh vereinfachte Version)
 FRAMES = {
     "conflict": {"vs", "battle", "fight", "clash"},
-    "economic": {"cost", "market", "jobs", "growth"},
+    "economic": {"cost", "market", "jobs", "growth", "workloads"},
     "human_interest": {"child", "family", "story", "heart"},
 }
 
