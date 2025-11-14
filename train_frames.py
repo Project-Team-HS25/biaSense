@@ -7,18 +7,18 @@ from spacy.tokens import DocBin
 from spacy.training import Example
 from sklearn.metrics import f1_score, classification_report
 
-def read_jsonl(path: str) -> List[Dict]: #diese Funktion liest eine JSONL-Datei (durch angegeben Pfad) ein und gibt eine Liste von Dictionaries zurück.
+def read_jsonl(path: str) -> List[Dict]: # diese Funktion liest eine JSONL-Datei (durch angegeben Pfad) ein und gibt eine Liste von Dictionaries zurück.
     lines = Path(path).read_text(encoding="utf-8").splitlines()
     return [json.loads(li) for li in lines]
 
-def collect_labels(examples: List[Dict]) -> List[str]: #extrahiert alle eindeutigen Labels aus den "cats"-Feldern der Beispiele und gibt sie als sortierte Liste zurück.
+def collect_labels(examples: List[Dict]) -> List[str]: # extrahiert alle eindeutigen Labels aus den "cats"-Feldern der Beispiele und gibt sie als sortierte Liste zurück.
     labels = set()
     for ex in examples:
         for k in ex["cats"].keys():
             labels.add(k)
     return sorted(labels)
 
-def make_docbin(nlp, examples: List[Dict]) -> DocBin: #erstellt ein DocBin-Objekt aus den gegebenen Beispielen, wobei jedes Beispiel in ein Doc-Objekt umgewandelt und mit den entsprechenden Kategorien versehen wird.
+def make_docbin(nlp, examples: List[Dict]) -> DocBin: # erstellt ein DocBin-Objekt aus den gegebenen Beispielen, wobei jedes Beispiel in ein Doc-Objekt umgewandelt und mit den entsprechenden Kategorien versehen wird.
     db = DocBin()
     for ex in examples:
         doc = nlp.make_doc(ex["text"])
@@ -27,7 +27,7 @@ def make_docbin(nlp, examples: List[Dict]) -> DocBin: #erstellt ein DocBin-Objek
         db.add(doc)
     return db
 
-def to_y(examples: List[Dict], labels: List[str]): #wandelt die "cats"-Daten der Beispiele in eine binäre Matrix um, wobei jede Zeile einem Beispiel und jede Spalte einem Label entspricht. Die Werte werden auf 0 oder 1 gerundet.
+def to_y(examples: List[Dict], labels: List[str]): # wandelt die "cats"-Daten der Beispiele in eine binäre Matrix um, wobei jede Zeile einem Beispiel und jede Spalte einem Label entspricht. Die Werte werden auf 0 oder 1 gerundet.
     import numpy as np
     y = []
     for ex in examples:
@@ -63,7 +63,7 @@ def main():
         textcat.add_label(lbl)
 
     # Example-Objekte erstellen
-    # Wir wandeln jedes Beispiel in ein spaCy Example-Objekt um, da spaCy diese für das Training und Initialize erwartet.
+    # Wandeln von jedem Beispiel in ein spaCy Example-Objekt um, da spaCy diese für das Training und Initialize erwartet.
     train_examples = [Example.from_dict(nlp.make_doc(ex["text"]), {"cats": ex["cats"]}) for ex in train_examples_raw]
     dev_examples   = [Example.from_dict(nlp.make_doc(ex["text"]), {"cats": ex["cats"]}) for ex in dev_examples_raw]
 

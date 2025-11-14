@@ -5,18 +5,6 @@ Ziel:
 Sentiment als Baseline trainieren und einfache Framing-Erkennung per Regeln integrieren.
 Minimalstruktur. Schnell lauffähig.
 
-## Projektstruktur
-
-spacy-mini-text/
-├─ requirements.txt
-├─ README.md
-├─ data/
-│  ├─ train.jsonl
-│  └─ dev.jsonl
-├─ components.py
-├─ train_sentiment.py
-├─ run_pipeline.py
-└─ inspect_spacy.py
 
 ## 1 Vorbereitungen
 
@@ -50,10 +38,11 @@ Wenn eigene Daten: gleiche Struktur beibehalten.
 
 ## 3 Modell trainieren
 
-python train_sentiment.py
+py train_sentiment.py
+py train_frames.py
 
 Output:
-- Modell wird nach `models/textcat-mini` gespeichert
+- Modell wird nach `models/xxx-mini` gespeichert
 - Accuracy wird auf dev-Daten ausgegeben
 
 ## 4 Pipeline ausführen
