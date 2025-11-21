@@ -2,6 +2,12 @@ import streamlit as st
 from business_logic.text_analyzer import TextAnalyzer
 from llm_analyzer import analyse_text_mit_llm, verbessere_text_mit_llm
 
+st.set_page_config(
+    page_title="Text Analyzer",
+    page_icon="📊",
+    layout="wide"
+)
+
 hide_streamlit_style = """
 <style>
     #MainMenu {visibility: hidden;}
@@ -18,13 +24,6 @@ hide_streamlit_style = """
 </style>
 """
 st.markdown(hide_streamlit_style, unsafe_allow_html=True)
-
-# Seiten-Konfiguration
-st.set_page_config(
-    page_title="Text Analyzer",
-    page_icon="📊",
-    layout="wide"
-)
 
 # Session State initialisieren
 if 'analysis_done' not in st.session_state:
@@ -64,7 +63,7 @@ with st.sidebar:
 
     # KI-Analyse Optionen
     st.markdown("---")
-    st.subheader("KI-Analyse")
+    st.header("Phase 3 - KI-Analyse")
     use_llm = st.checkbox("KI Analyse aktivieren", value=True, help="Nutzt das Modell Ollama für die Analyse.")
     show_improved_text = st.checkbox("Verbesserungsvorschlag anzeigen", value=True,
                                      help="KI schlägt neutralere Formulierung vor")
