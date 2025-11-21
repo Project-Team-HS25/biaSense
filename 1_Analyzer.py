@@ -339,14 +339,14 @@ if st.session_state.analysis_done:
     # KI Analyse
     if use_llm and st.session_state.analysis_done:
         st.markdown("---")
-        st.header("🤖 KI Analyse")
+        st.header("KI Analyse")
 
         st.markdown("**Definiere deine Analyse-Anforderungen:**")
         custom_analysis_prompt = st.text_area(
             "Eigener Analyse-Prompt (optional):",
             placeholder="Z.B.: Analysiere den Text auf geschlechtsspezifische Sprache und gib konkrete Beispiele...",
             help="Lass das Feld leer für Standard-Analyse oder gib deine eigenen Anforderungen ein",
-            height=100,
+            height=300,
             key="custom_analysis"
         )
 
@@ -368,13 +368,13 @@ if st.session_state.analysis_done:
 
     if use_llm and show_improved_text and st.session_state.analysis_done:
         st.markdown("---")
-        st.subheader("📝 Verbesserungsvorschlag")
+        st.subheader("Verbesserungsvorschlag")
 
         custom_improvement_prompt = st.text_area(
             "Eigener Verbesserungs-Prompt (optional):",
             placeholder="Z.B.: Formuliere den Text um für ein jüngeres Publikum und verwende einfachere Sprache...",
             help="Lass das Feld leer für Standard-Verbesserung oder gib deine eigenen Anforderungen ein",
-            height=100,
+            height=300,
             key="custom_improvement"
         )
 
@@ -390,7 +390,7 @@ if st.session_state.analysis_done:
                     st.text_area(
                         "Neutralere Version des Textes:",
                         value=improved_text,
-                        height=200,
+                        height=300,
                         key="improved_output"
                     )
                 except Exception as e:
