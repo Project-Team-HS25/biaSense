@@ -151,7 +151,7 @@ if st.session_state.analysis_done:
 
     # Lemmatisierung anzeigen (optional)
     if show_lemmatization and st.session_state.lemmatized:
-        st.header("Lemmatisierung")
+        st.header("Phase 1 - Lemmatisierung")
         st.markdown("**Wortformen, die auf ihre Grundform reduziert wurden:**")
 
         lemma_changes = [(orig, lemma) for orig, lemma in st.session_state.lemmatized
@@ -182,7 +182,7 @@ if st.session_state.analysis_done:
     # Adjektiv-Analyse
     if show_adjectives and st.session_state.adjective_results.get('count', 0) > 0:
         st.markdown("---")
-        st.subheader("Adjektiv-Analyse")
+        st.subheader("Phase 1 - Adjektiv-Analyse")
 
         sent_col1, sent_col2, sent_col3 = st.columns(3)
 
@@ -209,7 +209,7 @@ if st.session_state.analysis_done:
                 'negative': 'Negativ'
             }
             st.metric(
-                label="Gesamtstimmung",
+                label="Phase 1 - Gesamtstimmung",
                 value=sentiment_emoji.get(sentiment, sentiment),
                 help="Basierend auf durchschnittlichem Adjektiv-Score"
             )
@@ -244,7 +244,7 @@ if st.session_state.analysis_done:
     # Verb-Analyse
     if show_verbs and st.session_state.verb_results.get('count', 0) > 0:
         st.markdown("---")
-        st.subheader("Verb-Analyse")
+        st.subheader("Phase 1 - Verb-Analyse")
 
         verb_col1, verb_col2, verb_col3 = st.columns(3)
 
@@ -310,7 +310,7 @@ if st.session_state.analysis_done:
     if (show_adjectives and st.session_state.adjective_results.get('count', 0) > 0) or \
        (show_verbs and st.session_state.verb_results.get('count', 0) > 0):
         st.markdown("---")
-        st.subheader("Gesamtstimmung (Adjektive + Verben)")
+        st.subheader("Phase 1 - Gesamtstimmung (Adjektive + Verben)")
 
         scores = []
         if st.session_state.adjective_results.get('count', 0) > 0:
@@ -339,7 +339,7 @@ if st.session_state.analysis_done:
     # KI Analyse
     if use_llm and st.session_state.analysis_done:
         st.markdown("---")
-        st.header("KI Analyse")
+        st.header("Phase 3 - KI Analyse")
 
         st.markdown("**Definiere deine Analyse-Anforderungen:**")
         custom_analysis_prompt = st.text_area(

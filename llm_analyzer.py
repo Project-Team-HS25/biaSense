@@ -1,73 +1,54 @@
 import ollama
 
-def analyse_text_mit_llm(text, adjective_results, verb_results, custom_prompt=None):
-    """
-    Lokale Analyse mit Ollama
-    """
-    kategorisierung = """
-KATEGORISIERUNG (verwende diese Einteilung):
-- Score ≥66: Positiv
-- Score 40-65: Neutral
-- Score <40: Negativ
-"""
+SYSTEM_PROMPT = """Du bist ein Sentiment-Analyse Experte.
 
-    if custom_prompt:
-        # Bei eigenem Prompt: Regel automatisch hinzufügen
-        prompt = f"""{custom_prompt}
+WICHTIG: Sentiment-Scores sind IMMER 0-100 (niemals negativ!).
+- 0-20: sehr negativ
+- 20-40: negativ  
+- 40-60: neutral
+- 60-80: positiv
+- 80-100: sehr positiv
 
-{kategorisierung}
+Beispiel: "terrible" = 15/100, "amazing" = 90/100"""
+
+
+def analyse_text_mit_llm(text, _adjective_results=None, _verb_results=None, custom_prompt=None):
+
+    base_instruction = """Kategorisierung: ≥66 Positiv | 40-65 Neutral | <40 Negativ
+
+Verwende NUR Scores 0-100. Negative Wörter = niedrige Scores (z.B. 15/100).
 
 TEXT:
 {text}
 
-GEMESSENE WERTE (zur Information):
-- Adjektiv-Score (gemessen): {adjective_results.get('average_score', 'N/A')}/100
-- Verb-Score (gemessen): {verb_results.get('average_score', 'N/A')}/100
-- Adjektiv-Sentiment: {adjective_results.get('sentiment', 'N/A')}
-- Verb-Sentiment: {verb_results.get('sentiment', 'N/A')}
+{task}
 
 Antworte auf Deutsch."""
-    else:
-        # Standard-Prompt
-        prompt = f"""Analysiere folgenden Text auf mögliche Bias und Tonalität:
 
-TEXT:
-{text}
+    task = custom_prompt if custom_prompt else "Analysiere Sentiment (Adjektive, Verben, Gesamtstimmung)."
 
-QUANTITATIVE ERGEBNISSE:
-- Adjektiv-Score: {adjective_results.get('average_score', 'N/A')}/100
-- Verb-Score: {verb_results.get('average_score', 'N/A')}/100
-
-{kategorisierung}
-
-Gib eine kurze Analyse (max. 200 Wörter) auf Deutsch."""
+    prompt = base_instruction.format(text=text, task=task)
 
     response = ollama.chat(
         model='phi3',
-        messages=[{'role': 'user', 'content': prompt}]
+        messages=[
+            {'role': 'system', 'content': SYSTEM_PROMPT},
+            {'role': 'user', 'content': prompt}
+        ]
     )
 
     return response['message']['content']
 
-
 def verbessere_text_mit_llm(text, custom_prompt=None):
-    """
-    Llokale Textverbesserung mit Ollama
-    """
-    if custom_prompt:
-        prompt = f"""{custom_prompt}
+
+    task = custom_prompt if custom_prompt else "Formuliere neutraler und ausgewogener."
+
+    prompt = f"""{task}
 
 TEXT:
 {text}
 
-Antworte auf Deutsch."""
-    else:
-        prompt = f"""Formuliere folgenden Text neutraler und ausgewogener, ohne die Kernaussage zu verändern:
-
-TEXT:
-{text}
-
-Gib nur den verbesserten Text zurück, ohne zusätzliche Erklärungen."""
+Gib nur den verbesserten Text zurück."""
 
     response = ollama.chat(
         model='phi3',
