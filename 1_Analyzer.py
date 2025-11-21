@@ -151,7 +151,7 @@ if st.session_state.analysis_done:
 
     # Lemmatisierung anzeigen (optional)
     if show_lemmatization and st.session_state.lemmatized:
-        st.header("Phase 1 - Lemmatisierung")
+        st.subheader("Phase 1 - Lemmatisierung")
         st.markdown("**Wortformen, die auf ihre Grundform reduziert wurden:**")
 
         lemma_changes = [(orig, lemma) for orig, lemma in st.session_state.lemmatized
