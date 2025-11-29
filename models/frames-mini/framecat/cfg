@@ -1,0 +1,13 @@
+{
+  "labels":[
+    "conflict",
+    "economic",
+    "environment",
+    "health",
+    "human_interest",
+    "policy_regulation",
+    "public_safety",
+    "technology"
+  ],
+  "threshold":0.5
+}
