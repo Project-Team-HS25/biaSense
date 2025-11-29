@@ -6,3 +6,8 @@ __pycache__/
 .venv/
 env/
 venv/
+
+# Models
+ml_models/artifacts/
+models/
+results/
