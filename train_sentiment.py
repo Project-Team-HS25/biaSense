@@ -54,7 +54,7 @@ def main():
 
     # 5. Trainingsloop mit Minibatches, Shuffle
     # Hinweis: zu viele Epochen -> Overfitting, zu wenige -> Underfitting
-    for epoch in range(10):  # 5 Durchläufe (Epochen) über den gesamten Trainingssatz
+    for epoch in range(15):  # 5 Durchläufe (Epochen) über den gesamten Trainingssatz
         random.shuffle(train_docs)  # Reihenfolge mischen, verhindert das Modell sich zu sehr auf die Reihenfolge der Daten einzustellen (reduziert Overfitting)
         losses = {}  # sammelt Verluste pro Komponente (hier: "textcat")
 

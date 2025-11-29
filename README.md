@@ -1,5 +1,14 @@
-# Recherce von Spacy Funktionen und Funktionsweisen
-# spaCy Mini Text Project
+Abort UI / exit Terminal with ctrl + c
+
+# Phase 1
+## Setup
+install ollama from https://ollama.com/download
+open CMD
+write: ollama pull phi3
+wait for full download.
+
+
+# Phase 2
 
 Ziel:
 Sentiment als Baseline trainieren und einfache Framing-Erkennung per Regeln integrieren.
@@ -8,24 +17,19 @@ Minimalstruktur. Schnell lauffähig.
 
 ## 1 Vorbereitungen
 
-### 1.1 Repository klonen
-git clone <URL>
-cd spacy-mini-text
-
-makefile
-
-### 1.2 Virtuelle Umgebung erstellen
+### 1.1 Virtuelle Umgebung erstellen (da systemabhängig)
 Windows:
 python -m venv .venv
-..venv\Scripts\activate
+-> es sollte nun ein .venv Ordner im Projektverzeichnis entstanden sein
+.venv\Scripts\Activate
 
 Linux / Mac:
 python3 -m venv .venv
 source .venv/bin/activate
 
-### 1.3 Abhaengigkeiten installieren
-pip install -r requirements.txt
-python -m spacy download en_core_web_sm
+### 1.2 Abhaengigkeiten installieren
+py -m pip install -r requirements.txt
+py -m spacy download en_core_web_sm
 
 ## 2 Daten prüfen
 
@@ -54,16 +58,7 @@ Dies:
 - Fügt Framing-Komponente + Sentiment-Regel-Komponente hinzu
 - Gibt TextCat-Label, Frame-Zaehler und Regel-Sentiment aus
 
-## 5 spaCy intern inspizieren
-
-python inspect_spacy.py
-
-Dies zeigt:
-- Welche Pipes aktiv sind
-- Welche Config genutzt wird
-- Modellarchitektur-Uebersicht
-
-## 6 Wenn Terminal neu gestartet wurde
+## 5 Wenn Terminal neu gestartet wurde
 
 Virtuelle Umgebung erneut aktivieren:
 Windows:

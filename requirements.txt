@@ -2,3 +2,8 @@ spacy>=3.7
 scikit-learn
 pandas
 typer
+nltk
+streamlit
+ollama
+pathlib
+plotly
