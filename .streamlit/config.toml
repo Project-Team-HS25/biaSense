@@ -1,0 +1,6 @@
+[theme]
+base = "dark"
+primaryColor = "#FFFFFF"                # Akzente in Weiß
+backgroundColor = "#0E1117"             # Fast Schwarz
+secondaryBackgroundColor = "#262730"    # Dunkelgrau
+textColor = "#FAFAFA"
