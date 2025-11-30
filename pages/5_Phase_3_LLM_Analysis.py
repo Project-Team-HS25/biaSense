@@ -144,7 +144,7 @@ with st.sidebar:
     st.markdown("---")
     
     # Der Reset Button (Außerhalb des Fragments, da er die ganze App betrifft)
-    if st.button("Neue Analyse starten", use_container_width=True):
+    if st.button("Neue Analyse starten", width='stretch'):
         st.session_state.analysis_done = False
         st.session_state.text = ""
         st.session_state.llm_result = ""

@@ -123,7 +123,7 @@ if 'losses' in st.session_state:
         hovermode='x',
         height=300
     )
-    st.plotly_chart(fig, use_container_width=True)
+    st.plotly_chart(fig, width='stretch')
 
 st.markdown("---")
 
@@ -187,7 +187,7 @@ def display_sentence_analysis(sentence_idx, tab):
             height=500
         )
 
-        st.plotly_chart(fig, use_container_width=True)
+        st.plotly_chart(fig, width='stretch')
 
         st.markdown("---")
 

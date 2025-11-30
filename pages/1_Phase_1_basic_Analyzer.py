@@ -121,9 +121,9 @@ text = st.text_area(
 # Analyse-Button
 col1, col2, col3 = st.columns([1, 1, 2])
 with col1:
-    analyze_button = st.button("Analysiere den Text", use_container_width=True)
+    analyze_button = st.button("Analysiere den Text", width='stretch')
 with col2:
-    clear_button = st.button("Lösche den Text", use_container_width=True)
+    clear_button = st.button("Lösche den Text", width='stretch')
 
 # Clear-Funktionalität
 if clear_button:

@@ -78,7 +78,7 @@ st.markdown("""
 try:
     col1, col2, col3 = st.columns([2, 3, 2])
     with col2:
-        st.image("Logo-Design für biaSense2.png", use_container_width=True)
+        st.image("Logo-Design für biaSense2.png", width='stretch')
 except:
     st.title("biaSense")
 
@@ -104,12 +104,12 @@ with col1:
 
         with col1_1:
             with st.container():
-                if st.button("Basic Analyzer", key="btn_ph1_basic", use_container_width=True):
+                if st.button("Basic Analyzer", key="btn_ph1_basic", width='stretch'):
                     st.switch_page("pages/1_Phase_1_basic_Analyzer.py")
 
         with col1_2:
             with st.container():    
-                if st.button("Attention Demo (PoC)", key="btn_ph1_attention", use_container_width=True):
+                if st.button("Attention Demo (PoC)", key="btn_ph1_attention", width='stretch'):
                     st.switch_page("pages/2_Phase_1_Attention.py")
 
 # --- Spalte 2: Phase 2 (ML & Rule Learner) ---
@@ -130,11 +130,11 @@ with col2:
 
         with col2_1:
             with st.container():
-                if st.button("ML Based Analysis", key="btn_ph2_ml", use_container_width=True):
+                if st.button("ML Based Analysis", key="btn_ph2_ml", width='stretch'):
                     st.switch_page("pages/3_Phase 2_ML_based_Analysis.py")
         with col2_2:
             with st.container():            
-                if st.button("Rule Learner (PoC)", key="btn_ph2_rule", use_container_width=True):
+                if st.button("Rule Learner (PoC)", key="btn_ph2_rule", width='stretch'):
                     st.switch_page("pages/4_Phase_2_Rulelearner.py")
 
 # --- Spalte 3: Phase 3 (LLM) ---
@@ -152,7 +152,7 @@ with col3:
 
         st.write("") # Platzhalter für Layout-Balance
 
-        if st.button("LLM Analysis", key="btn_ph3_llm", use_container_width=True):
+        if st.button("LLM Analysis", key="btn_ph3_llm", width='stretch'):
             st.switch_page("pages/5_Phase_3_LLM_Analysis.py")
 
 

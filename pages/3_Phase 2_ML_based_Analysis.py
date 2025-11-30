@@ -121,7 +121,7 @@ with tab_run:
     with col_vis:
         st.markdown("### Der Prozess")
         # Platzhalter für das Bild
-        st.image("Pipeline.png", width=180, use_container_width=False)
+        st.image("Pipeline.png", width=180)
 
         
 
@@ -464,7 +464,7 @@ with tab_train_frames:
                 st.markdown("**Detaillierter Abschlussbericht:**")
                 report_dict = classification_report(y_true, y_pred, target_names=labels, zero_division=0, output_dict=True)
                 report_df = pd.DataFrame(report_dict).transpose()
-                st.dataframe(report_df, use_container_width=True)
+                st.dataframe(report_df, width='stretch')
 
         except Exception as e:
             st.error(f"Fehler: {e}")
