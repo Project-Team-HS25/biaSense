@@ -163,6 +163,25 @@ def analyze_text_html(text, clf, vectorizer):
 # ------------------------------------------------------------------------------
 # UI AUFBAU
 # ------------------------------------------------------------------------------
+# Custom CSS für das Button-Design
+st.markdown("""
+    <style>
+    /* Buttons in den Kacheln auf volle Breite */
+    .stButton button {
+        width: 100%;
+        background-color: white;
+        color: black;
+        border: 1px solid black;
+        margin-top: 5px;
+    }
+    .stButton button:hover {
+        background-color: gray;
+        color: white;
+        border: 1px solid black;
+    }
+    </style>
+""", unsafe_allow_html=True)
+
 col1, col2 = st.columns([1, 8])
 with col1:
     if os.path.exists("Logo-Design für biaSense.png"):

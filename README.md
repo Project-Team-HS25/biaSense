@@ -1,4 +1,7 @@
 Abort UI / exit Terminal with ctrl + c
+*Activate venv:* .venv\Scripts\Activate
+*Start UI:* py -m streamlit run Home.py
+
 
 # Phase 1
 ## Setup

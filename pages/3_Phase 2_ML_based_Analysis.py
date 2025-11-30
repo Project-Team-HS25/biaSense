@@ -30,6 +30,25 @@ except ImportError:
     # Fallback, falls Komponenten nicht geladen werden können (verhindert Absturz)
     pass
 
+# Custom CSS für das Button-Design
+st.markdown("""
+    <style>
+    /* Buttons in den Kacheln auf volle Breite */
+    .stButton button {
+        width: 100%;
+        background-color: white;
+        color: black;
+        border: 1px solid black;
+        margin-top: 5px;
+    }
+    .stButton button:hover {
+        background-color: gray;
+        color: white;
+        border: 1px solid black;
+    }
+    </style>
+""", unsafe_allow_html=True)
+
 # Streamlit-Styling für einen professionellen Look ohne Ablenkung
 hide_streamlit_style = """
 <style>

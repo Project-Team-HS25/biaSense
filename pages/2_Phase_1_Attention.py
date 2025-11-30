@@ -13,6 +13,25 @@ import numpy as np
 import plotly.graph_objects as go
 from business_logic.attention_model import AttentionDemo
 
+# Custom CSS für das Button-Design
+st.markdown("""
+    <style>
+    /* Buttons in den Kacheln auf volle Breite */
+    .stButton button {
+        width: 100%;
+        background-color: white;
+        color: black;
+        border: 1px solid black;
+        margin-top: 5px;
+    }
+    .stButton button:hover {
+        background-color: gray;
+        color: white;
+        border: 1px solid black;
+    }
+    </style>
+""", unsafe_allow_html=True)
+
 # Streamlit-Styling verstecken
 hide_streamlit_style = """
 <style>

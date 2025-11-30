@@ -35,6 +35,25 @@ st.set_page_config(
     layout="wide"
 )
 
+# Custom CSS für das Button-Design
+st.markdown("""
+    <style>
+    /* Buttons in den Kacheln auf volle Breite */
+    .stButton button {
+        width: 100%;
+        background-color: white;
+        color: black;
+        border: 1px solid black;
+        margin-top: 5px;
+    }
+    .stButton button:hover {
+        background-color: gray;
+        color: white;
+        border: 1px solid black;
+    }
+    </style>
+""", unsafe_allow_html=True)
+
 # Custom CSS um Standard-Elemente auszublenden
 st.markdown("""
 <style>
@@ -107,14 +126,14 @@ with st.sidebar:
                 try:
                     if system == "Darwin":  # MacOS
                         subprocess.Popen(["open", "-a", "Ollama"])
-                        st.toast("Startbefehl gesendet...", icon="⏳")
+                        st.toast("Startbefehl an MacOS gesendet...", icon="⏳")
                     
                     elif system == "Windows":
                         subprocess.Popen("ollama serve", shell=True, creationflags=subprocess.CREATE_NO_WINDOW)
-                        st.toast("Startbefehl gesendet...", icon="⏳")
+                        st.toast("Startbefehl an Windows gesendet...", icon="⏳")
                     
                     else:
-                        st.warning("Bitte manuell im Terminal starten.")
+                        st.warning("Bitte Ollama manuell im Terminal starten.")
                         
                 except Exception as e:
                     st.error(f"Fehler: {e}")
