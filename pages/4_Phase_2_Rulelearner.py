@@ -20,12 +20,12 @@ sys.path.append(str(ROOT_DIR))
 
 # 2. NLTK Datenpfad hinzufügen (OS-Unabhängig)
 # Wir suchen im Ordner "nltk_data" im Hauptverzeichnis
-nltk_data_path = ROOT_DIR / "nltk_data"
+nltk_data_path = ROOT_DIR / "data/nltk_data"
 # WICHTIG: Wir fügen den Pfad AM ANFANG ein (insert 0), damit er bevorzugt wird
 if nltk_data_path.exists():
     nltk.data.path.insert(0, str(nltk_data_path))
 
-st.set_page_config(page_title="Rule Learner", page_icon="📏", layout="wide")
+st.set_page_config(page_title="Rule Learner", page_icon="📑", layout="wide")
 
 # ------------------------------------------------------------------------------
 # INITIALISIERUNG (SpaCy)
@@ -46,7 +46,7 @@ nlp = load_spacy_model()
 # ------------------------------------------------------------------------------
 def run_downloader_script():
     """Führt das externe Download-Skript aus und fängt den Output ab."""
-    script_path = ROOT_DIR / "download_nltk_movie_reviews.py"
+    script_path = ROOT_DIR / "scripts/download_nltk_movie_reviews.py"
     
     if not script_path.exists():
         st.error(f"Skript nicht gefunden: {script_path}")
@@ -184,8 +184,8 @@ st.markdown("""
 
 col1, col2 = st.columns([1, 8])
 with col1:
-    if os.path.exists("Logo-Design für biaSense.png"):
-        st.image("Logo-Design für biaSense2.png", width=100)
+    if os.path.exists("images/Logo-Design für biaSense.png"):
+        st.image("images/Logo-Design für biaSense2.png", width=100)
     else:
         st.write("biaSense")
 with col2:

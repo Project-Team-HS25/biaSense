@@ -1,9 +1,3 @@
-# ==============================================================================
-# MODUL: Phase 3 - LLM Analyzer (UI)
-# DATEI: pages/6_🤖_Phase3_LLM.py
-# PROJEKT: biaSense
-# ==============================================================================
-
 from turtle import back
 import streamlit as st
 import sys
@@ -12,6 +6,7 @@ from pathlib import Path
 import subprocess
 import platform
 import requests # Falls noch nicht installiert: pip install requests
+import business_logic.llm_analyzer as llm_analyzer
 
 # ------------------------------------------------------------------------------
 # PFAD-KONFIGURATION (Verbindung zum Backend)
@@ -21,7 +16,7 @@ sys.path.append(str(Path(__file__).parent.parent))
 
 try:
     # Wir importieren nur die benötigten Funktionen aus deiner Datei
-    from llm_analyzer import analyse_text_mit_llm, verbessere_text_mit_llm
+    from business_logic.llm_analyzer import analyse_text_mit_llm, verbessere_text_mit_llm
 except ImportError as e:
     st.error(f"Import-Fehler: {e}. Bitte stelle sicher, dass 'llm_analyzer.py' im Hauptordner liegt.")
     st.stop()
@@ -31,7 +26,7 @@ except ImportError as e:
 # ------------------------------------------------------------------------------
 st.set_page_config(
     page_title="LLM Analyzer",
-    page_icon="🤖",
+    page_icon="📑",
     layout="wide"
 )
 
@@ -80,12 +75,12 @@ if 'llm_result' not in st.session_state:
 # ------------------------------------------------------------------------------
 col1, col2 = st.columns([1, 8])
 with col1:
-    if os.path.exists("Logo-Design für biaSense2.png"):
-        st.image("Logo-Design für biaSense2.png", width=100)
+    if os.path.exists("images/Logo-Design für biaSense2.png"):
+        st.image("images/Logo-Design für biaSense2.png", width=100)
     else:
         st.write("BiaSense")
 with col2:
-    st.title("Text Analyzer")
+    st.title("LLM based Analysis")
 
 st.markdown("---")
 

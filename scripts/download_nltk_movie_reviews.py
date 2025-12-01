@@ -12,7 +12,8 @@ current_dir = Path(__file__).parent
 
 # Erstelle einen lokalen Ordner für NLTK Daten im Projektverzeichnis
 # Das macht es unabhängig vom User-Ordner
-nltk_data_dir = current_dir / "nltk_data"
+ROOT_DIR = current_dir.parent
+nltk_data_dir = ROOT_DIR / "data/nltk_data"
 nltk_data_dir.mkdir(parents=True, exist_ok=True)
 
 # Füge diesen Pfad zu NLTK hinzu, damit es weiß, wo es speichern soll

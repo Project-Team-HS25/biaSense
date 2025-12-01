@@ -1,8 +1,6 @@
-from locale import normalize
-from operator import ne
-from turtle import pos
-import charset_normalizer
-import pip
+import sys
+import os
+from pathlib import Path
 import streamlit as st
 import spacy
 from spacy.tokens import DocBin
@@ -12,23 +10,28 @@ import random
 import numpy as np
 import json
 import pandas as pd
-from pathlib import Path
 from typing import Dict, List
 from sklearn.metrics import f1_score, classification_report, accuracy_score
-import sys
-import os
+
+# --- PFAD-FIX START (Robust für Streamlit Multi-Page Apps) ---
+current_dir = os.path.dirname(os.path.abspath(__file__))
+root_dir = os.path.dirname(current_dir)
+if root_dir not in sys.path:
+    sys.path.insert(0, root_dir)
+# --- PFAD-FIX ENDE ---
 
 # ------------------------------------------------------------------------------
 # SYSTEM-KONFIGURATION
 # ------------------------------------------------------------------------------
-# Wir fügen das Hauptverzeichnis zum Pfad hinzu, damit components.py gefunden wird
-sys.path.append(str(Path(__file__).parent.parent))
 
+components_available = False
 try:
-    from components import create_framing_component, create_sentiment_rule
-except ImportError:
-    # Fallback, falls Komponenten nicht geladen werden können (verhindert Absturz)
-    pass
+    # Nur der Import registriert die @Language.factory-Komponenten bei SpaCy
+    from business_logic.components import create_framing_component, create_sentiment_rule
+    components_available = True
+except ImportError as e:
+    st.error(f"FATAL: Konnte Komponenten nicht importieren. Fehler: {e}") 
+    st.stop() 
 
 # Custom CSS für das Button-Design
 st.markdown("""
@@ -49,7 +52,7 @@ st.markdown("""
     </style>
 """, unsafe_allow_html=True)
 
-# Streamlit-Styling für einen professionellen Look ohne Ablenkung
+# Streamlit-Styling verstecken
 hide_streamlit_style = """
 <style>
     #MainMenu {visibility: hidden;}
@@ -66,8 +69,8 @@ hide_streamlit_style = """
 st.markdown(hide_streamlit_style, unsafe_allow_html=True)
 
 st.set_page_config(
-    page_title="Pipeline Manager & Training",
-    page_icon=None, # Keine Emojis im Tab-Titel
+    page_title="ML Analysis & Training",
+    page_icon="📑", 
     layout="wide"
 )
 
@@ -76,8 +79,9 @@ st.set_page_config(
 # ------------------------------------------------------------------------------
 col1, col2 = st.columns([1, 8])
 with col1:
-    if os.path.exists("Logo-Design für biaSense.png"):
-        st.image("Logo-Design für biaSense2.png", width=100)
+    # Pfad zur Logo-Datei anpassen, falls du den 'assets' Ordner erstellt hast!
+    if os.path.exists("images/Logo-Design für biaSense2.png"):
+        st.image("images/Logo-Design für biaSense2.png", width=100)
     else:
         st.write("biaSense")
 with col2:
@@ -100,7 +104,7 @@ with tab_run:
     # TEIL A: INPUT
     # -------------------------------------------------------------------------
     st.markdown("### Text Eingabe")
-    default_text = "I love this product! It works great and makes me happy."
+    default_text = "I love this couch! It's great and makes me happy. The fight on Black Friday was worth it."
     user_text = st.text_area("Englischen Text zur Analyse eingeben:", value=default_text, height=300)
 
     sent_model_path = Path("models/textcat-mini")
@@ -109,7 +113,7 @@ with tab_run:
 
 
     if not models_exist:
-            st.warning("Es wurden keine trainierten Modelle gefunden. Bitte trainieren Sie zuerst die Modelle in den anderen Reitern.")
+        st.warning("Es wurden keine trainierten Modelle gefunden. Bitte trainieren Sie zuerst die Modelle in den anderen Reitern.")
 
     pipeline_button = st.button("Pipeline starten")
     st.markdown("---")
@@ -120,33 +124,29 @@ with tab_run:
     
     with col_vis:
         st.markdown("### Der Prozess")
-        # Platzhalter für das Bild
-        st.image("Pipeline.png", width=180)
-
-        
+        # Pfad zum Pipeline Bild anpassen
+        if os.path.exists("images/Pipeline.png"):
+            st.image("images/Pipeline.png", width=180)
+        else:
+            st.write("Pipeline-Bild fehlt")
 
     with col_expl:
         st.markdown("### Was passiert im Hintergrund?")
-        st.markdown("""
-        Wenn Sie auf 'Starten' klicken, durchläuft der Text folgende Schritte:
-                    
-        ###### 
-    
+        st.markdown("Wenn Sie auf 'Starten' klicken, durchläuft der Text folgende Schritte:")
+        st.markdown(" ")
+        st.markdown("1. **Tokenizer:** Der Satz wird in einzelne Wörter (Tokens) zerlegt. Aus 'It's' wird 'It' und ''s'.")
+        st.markdown(" ")
+        st.markdown(" ")
+        st.markdown("2. **Tagger & Parser:** Die Grammatik wird analysiert. Das Modell erkennt Verben, Substantive und deren Beziehung zueinander. ")
+        st.markdown(" ")
+        st.markdown(" ")
+        st.markdown("3. **Stopwords:** Unwichtige Füllwörter (wie 'the', 'is', 'at') werden markiert, damit sich das Modell auf den Inhalt konzentriert.")
+        st.markdown(" ")
+        st.markdown(" ")
+        st.markdown("4. **TextCat (Text Categorizer):** Hier greifen die trainierten Modelle. Sie weisen dem gesamten Text Wahrscheinlichkeiten für bestimmte Kategorien (Positiv/Negativ oder Frames) zu.")
+        st.markdown(" ")
+        st.markdown("5. **Custom Components:** Custom Components: Am Schluss laufen die eigenen Module für Sentiment und Framing. Das Sentiment-Modul durchsucht den Text nach positiven Begriffen wie great, good, excellent, love, amazing sowie nach negativen Begriffen wie bad, terrible, hate, awful, waste. Das Framing-Modul analysiert, ob der Text Begriffe enthält, die auf bestimmte Frames hinweisen. Beispiele: Konfliktframe mit vs, battle, fight, clash, Wirtschaftsframe mit cost, market, jobs, growth, workloads, Human Interest Frame mit child, family, story, heart. Hier wird das gleiche Vorgehen wie bei den Regeln in Phase 1 angewendet.")
 
-        ##### 1. **Tokenizer:** Der Satz wird in einzelne Wörter (Tokens) zerlegt. Aus "It's" wird "It" und "'s".
-                    
-
-        ##### 2. **Tagger & Parser:** Die Grammatik wird analysiert. Das Modell erkennt Verben, Substantive und deren Beziehung zueinander.
-                    
-
-        ##### 3. **Stopwords:** Unwichtige Füllwörter (wie "the", "is", "at") werden markiert, damit sich das Modell auf den Inhalt konzentriert.
-                    
-
-        ##### 4. **TextCat (Text Categorizer):** Hier greifen die trainierten Modelle. Sie weisen dem gesamten Text Wahrscheinlichkeiten für bestimmte Kategorien (Positiv/Negativ oder Frames) zu.
-                    
-
-        ##### 5. **Custom Components:** Ganz am Ende laufen die eigenen Regeln (z.B. Sentiment Component), um Ergebnisse zu zeigen, dass auch eigene Komponenten funktionieren würden.
-        """)
         
     st.markdown("---")
     
@@ -157,29 +157,35 @@ with tab_run:
     if not pipeline_button:
         st.markdown("Auf 'Pipeline starten' klicken, um die Analyse zu sehen.")
 
-    if pipeline_button:
+    if pipeline_button and models_exist:
         with st.spinner("Pipeline läuft... Tokenisierung... Analyse..."):
             try:
-                # Modelle laden
+                # 1. ML-Modelle laden (minimal)
                 nlp_sent = spacy.load("models/textcat-mini")
                 nlp_frames = spacy.load("models/frames-mini")
 
-                # Custom Components anhängen
-                if "framing_component" not in nlp_sent.pipe_names:
-                    # Hinweis: Hier müsste die echte Komponente importiert werden, falls registriert
-                    pass 
+                # 2. Regel-Pipeline erstellen (mit vollem englischen Modell für Lemmatisierung)
+                nlp_rules = spacy.load("en_core_web_sm")
                 
-                # Analyse
-                d_sent = nlp_sent(user_text)
-                d_frames = nlp_frames(user_text)
+                # 3. Custom Components zur Regel-Pipeline hinzufügen
+                if components_available:
+                    if "framing_component" not in nlp_rules.pipe_names:
+                        nlp_rules.add_pipe("framing_component", last=True) 
+                    if "sentiment_rule" not in nlp_rules.pipe_names:
+                        nlp_rules.add_pipe("sentiment_rule", last=True)
+                
+                # 4. Analyse durchführen
+                d_sent = nlp_sent(user_text)    # ML Sentiment Doc
+                d_frames = nlp_frames(user_text) # ML Frame Doc
+                d_rules = nlp_rules(user_text)  # Rule-Based Doc (mit Lemmatizer)
 
-                # Ergebnisse extrahieren
+                # Ergebnisse extrahieren (ML)
                 sent_pred = max(d_sent.cats, key=d_sent.cats.get)
                 sent_score = d_sent.cats[sent_pred]
                 frames_pred = {k: float(v) for k, v in d_frames.cats.items() if v >= 0.5}
 
                 # Darstellung
-                st.subheader("Analyse Ergebnisse")
+                st.subheader("Analyse Ergebnisse (ML Modelle)")
                 r1, r2 = st.columns(2)
                 
                 with r1:
@@ -187,14 +193,28 @@ with tab_run:
                     
                     match sent_pred.lower():
                         case 'pos':
-                            st.success(f"Klasse: {sent_pred.upper()} ({sent_score:.2%}), ")
+                            st.success(f"Klasse: {sent_pred.upper()} ({sent_score:.2%})")
                         case 'neg':
-                            st.error(f"Klasse: {sent_pred.upper()} ({sent_score:.2%}), ")
+                            st.error(f"Klasse: {sent_pred.upper()} ({sent_score:.2%})")
                         case 'neu':
-                            st.warning(f"Klasse: {sent_pred.upper()} ({sent_score:.2%}), ")
+                            st.warning(f"Klasse: {sent_pred.upper()} ({sent_score:.2%})")
                     
                     with st.expander("Details anzeigen"):
                         st.json(d_sent.cats)
+
+                    # Custom Rule-Based Output (Sentiment)
+                    if components_available and d_rules.has_extension("sentiment_rule"):
+                        rule_score = d_rules._.sentiment_rule
+                        st.markdown("---")
+                        st.markdown("**Regel-basierter Sentiment Score**")
+                        if rule_score > 0:
+                            st.info(f"Regel-Score: {rule_score} (Positiv Tendenz)")
+                        elif rule_score < 0:
+                            st.info(f"Regel-Score: {rule_score} (Negativ Tendenz)")
+                        else:
+                            st.info(f"Regel-Score: {rule_score} (Neutral)")
+                        st.markdown("*(Zur Demonstration: Hier wurde nur auf Basis einfacher Stichwörter analysiert.)*")
+
 
                 with r2:
                     st.markdown("**Frame Analyse**")
@@ -205,6 +225,22 @@ with tab_run:
                         st.write("Keine dominanten Frames gefunden.")
                     with st.expander("Details anzeigen"):
                         st.json(d_frames.cats)
+                        
+                    # Custom Rule-Based Output (Framing)
+                    if components_available and d_rules.has_extension("frames"):
+                        rule_frames = d_rules._.frames
+                        if any(rule_frames.values()):
+                            st.markdown("---")
+                            st.markdown("**Regel-basierte Frame Zählung**")
+                            # HIER WIRD DER FRAMING COMPONENT AUSGEGEBEN
+                            for frame, count in rule_frames.items():
+                                if count > 0:
+                                    st.info(f"Frame **{frame.capitalize()}**: {count} Vorkommen")
+                            st.markdown("*(Zur Demonstration: Hier wurde nur auf Basis einfacher Stichwörter gezählt.)*")
+                        else:
+                            st.markdown("---")
+                            st.info("Regel-basierte Frame Zählung: Keine Keywords gefunden.")
+
 
             except Exception as e:
                 st.error(f"Fehler beim Ausführen: {e}")
@@ -220,7 +256,7 @@ with tab_train_sent:
         st.markdown("""
         ### 1. Das TextCat Modell
         Das Modell verlässt sich nicht auf eine einzige Technik, sondern kombiniert zwei Ansätze:
-                    
+                     
         Der "Bag-of-Words" Teil (Linear Model): Das ist der simple Teil. Er lernt stumpf Gewichtungen für einzelne Wörter.
 
         * *Beispiel:* Das Wort "terrible" bekommt -5 Punkte, "fantastic" bekommt +5 Punkte.
@@ -439,7 +475,7 @@ with tab_train_frames:
                     # Schnelle Evaluation auf Dev-Set für Diagramm
                     y_true = to_y(dev_raw, labels)
                     y_pred = predict_multilabel(nlp, dev_raw, labels)
-                    f1 = f1_score(y_true, y_pred, average='macro')
+                    f1 = f1_score(y_true, y_pred, average='macro', zero_division=0)
 
                     # Historie
                     metrics_history_f["epoch"].append(epoch + 1)
@@ -450,6 +486,7 @@ with tab_train_frames:
                     df_f = pd.DataFrame(metrics_history_f).set_index("epoch")
                     df_f['loss'] = df_f['loss'] / max(df_f['loss'].max(), 1)
                     chart_placeholder_f.line_chart(df_f)
+                    
                     
                     status_text_f.text(f"Epoche {epoch+1}/{epochs_frames} | Loss: {loss_val:.4f} | F1-Macro: {f1:.4f}")
                     progress_bar_f.progress((epoch + 1) / epochs_frames)

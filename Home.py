@@ -1,3 +1,6 @@
+
+# To run this app, use: py -m streamlit run Home.py
+
 from narwhals import col
 import streamlit as st
 from PIL import Image
@@ -5,7 +8,7 @@ from PIL import Image
 # 1. Konfiguration der Seite
 st.set_page_config(
     page_title="BiaSense Home",
-    page_icon="⚖️",
+    page_icon="📑",
     layout="wide",
     initial_sidebar_state="collapsed"
 )
@@ -78,7 +81,7 @@ st.markdown("""
 try:
     col1, col2, col3 = st.columns([2, 3, 2])
     with col2:
-        st.image("Logo-Design für biaSense2.png", width='stretch')
+        st.image("images/Logo-Design für biaSense2.png", width='stretch')
 except:
     st.title("biaSense")
 
@@ -131,7 +134,7 @@ with col2:
         with col2_1:
             with st.container():
                 if st.button("ML Based Analysis", key="btn_ph2_ml", width='stretch'):
-                    st.switch_page("pages/3_Phase 2_ML_based_Analysis.py")
+                    st.switch_page("pages/3_Phase_2_ML_based_Analysis.py")
         with col2_2:
             with st.container():            
                 if st.button("Rule Learner (PoC)", key="btn_ph2_rule", width='stretch'):

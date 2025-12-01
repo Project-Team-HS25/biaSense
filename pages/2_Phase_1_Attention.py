@@ -52,14 +52,14 @@ st.markdown(hide_streamlit_style, unsafe_allow_html=True)
 # Seiten-Konfiguration
 st.set_page_config(
     page_title="Self-Attention Demo - Pronomen-Resolution",
-    page_icon="🔍",
+    page_icon="📑",
     layout="wide"
 )
 
 # Header
 col1, col2 = st.columns([1, 8])
 with col1:
-    st.image("Logo-Design für biaSense2.png", width=100)
+    st.image("images/Logo-Design für biaSense2.png", width=100)
 with col2:
     st.title("Self-Attention Demo: Pronomen-Resolution")
 

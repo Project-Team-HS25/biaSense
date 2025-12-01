@@ -20,8 +20,8 @@ from business_logic.text_analyzer import TextAnalyzer
 
 
 st.set_page_config(
-    page_title="Text Analyzer",
-    page_icon="📊",
+    page_title="Basic Text Analyzer",
+    page_icon="📑",
     layout="wide"
 )
 
@@ -80,9 +80,9 @@ if 'last_name' not in st.session_state:
 # Titel und Beschreibung
 col1, col2 = st.columns([1, 8])
 with col1:
-    st.image("Logo-Design für biaSense2.png", width=100)
+    st.image("images/Logo-Design für biaSense2.png", width=100)
 with col2:
-    st.title("Text Analyzer")
+    st.title("Basic Text Analyzer")
 st.markdown("""
 Analysiere deinen Text basierend auf Adjektiven und/oder Verben. Achtung: Nur englischsprachige Texte können berücksichtigt werden.
 Die Analyse verwendet Lemmatisierung, um verschiedene Wortformen zu erkennen (z.B. "running" → "run", "loved" → "love").

@@ -24,7 +24,7 @@ class TextAnalyzer:
     def load_stopwords(self):
         """Lädt Stopwords aus CSV oder verwendet Default"""
         try:
-            csv_path = os.path.join("business_logic", "CSV-Data", "stopwords.csv")
+            csv_path = os.path.join("data", "CSV-Data", "stopwords.csv")
             with open(csv_path, 'r', encoding='utf-8') as file:
                 reader = csv.DictReader(file)
                 for row in reader:
@@ -52,7 +52,7 @@ class TextAnalyzer:
     def load_irregular_verbs(self):
         """Lädt unregelmäßige Verben aus CSV"""
         try:
-            csv_path = os.path.join("business_logic", "CSV-Data", "lemma_verbs.csv")
+            csv_path = os.path.join("data", "CSV-Data", "lemma_verbs.csv")
             with open(csv_path, 'r', encoding='utf-8') as file:
                 reader = csv.DictReader(file)
                 for row in reader:
@@ -67,7 +67,7 @@ class TextAnalyzer:
     def load_irregular_adjectives(self):
         """Lädt unregelmäßige Adjektive aus CSV"""
         try:
-            csv_path = os.path.join("business_logic", "CSV-Data", "lemma_adjectives.csv")
+            csv_path = os.path.join("data", "CSV-Data", "lemma_adjectives.csv")
             with open(csv_path, 'r', encoding='utf-8') as file:
                 reader = csv.DictReader(file)
                 for row in reader:
@@ -82,7 +82,7 @@ class TextAnalyzer:
     def load_adjectives(self):
         """Lädt Adjektive mit Sentiment-Scores"""
         try:
-            csv_path = os.path.join("business_logic", "CSV-Data", "adjectives.csv")
+            csv_path = os.path.join("data", "CSV-Data", "adjectives.csv")
             with open(csv_path, 'r', encoding='utf-8') as file:
                 reader = csv.DictReader(file)
                 for row in reader:
@@ -97,7 +97,7 @@ class TextAnalyzer:
     def load_verbs(self):
         """Lädt Verben mit Sentiment-Scores"""
         try:
-            csv_path = os.path.join("business_logic", "CSV-Data", "verbs.csv")
+            csv_path = os.path.join("data", "CSV-Data", "verbs.csv")
             with open(csv_path, 'r', encoding='utf-8') as file:
                 reader = csv.DictReader(file)
                 for row in reader:
