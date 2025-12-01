@@ -1,107 +1,89 @@
-Abort UI / exit Terminal with ctrl + c
-*Activate venv:* .venv\Scripts\Activate
-*Start UI:* py -m streamlit run Home.py
+## **biaSense - Modulare Plattform für Sentiment- und Framing-Analyse**
 
+### **1. Überblick und Zielsetzung**
 
-# Phase 1
-## Setup
-install ollama from https://ollama.com/download
-open CMD
-write: ollama pull phi3
-wait for full download.
+Das **biaSense**-Projekt stellt eine mehrstufige und erweiterbare Plattform zur automatisierten Analyse von Textdokumenten hinsichtlich **Sentiment** (subjektive Stimmung) und **Framing** (zugrundeliegende Deutungsrahmen/Narrative) bereit.
 
+Die Architektur ist in verschiedene, voneinander unabhängige Analyse-Module unterteilt (Phase 1, 2 und 3), die es ermöglichen, **verschiedene NLP-Methoden**, von simplen linguistischen Regeln bis hin zu komplexen Large Language Models (LLMs), nebeneinander zu entwickeln, zu testen und zu vergleichen. Das Haupt-Interface bildet eine interaktive **Streamlit-Webanwendung (UI)**.
 
-# Phase 2
+### **2. Analysephasen**
 
-Ziel:
-Sentiment als Baseline trainieren und einfache Framing-Erkennung per Regeln integrieren.
-Minimalstruktur. Schnell lauffähig.
+| Phase | Fokus | Haupttechnologie(n) | UI-Seite |
+| :--- | :--- | :--- | :--- |
+| **Phase 1: Basale Analyse** | Detektion von linguistischen Merkmalen und Visualisierung von Gewichtungen. | N-Gramme, Lexika, Klassische ML-Modell-Architekturen. | `1_Phase_1_basic_Analyzer.py` und `2_Phase_1_Attention.py` |
+| **Phase 2: Klassisches NLP** | Anwendung traditioneller Sentiment-Klassifikatoren und regelbasierter Frame-Erkennung. | Trainierte spaCy TextCategorizer Modelle, Manuelle/Erlernten Regelwerke. | `3_Phase_2_ML_based_Analysis.py` und `4_Phase_2_Rulelearner.py` |
+| **Phase 3: LLM-Erweiterung** | Kontexteinbeziehende und interpretative Analyse komplexer Framing-Muster. | Lokal gehostetes LLM (Ollama/Phi-3). | `5_Phase_3_LLM_Analysis.py` |
 
+-----
 
-## 1 Vorbereitungen
+### **3. Erste Schritte (Quickstart)**
 
-### 1.1 Virtuelle Umgebung erstellen (da systemabhängig)
-Windows:
-python -m venv .venv
--> es sollte nun ein .venv Ordner im Projektverzeichnis entstanden sein
-.venv\Scripts\Activate
+#### **3.1. Systemvoraussetzungen**
 
-Linux / Mac:
-python3 -m venv .venv
-source .venv/bin/activate
+1.  **Python (3.x)** muss installiert sein.
+2.  **Ollama**: Für die **Phase 3 (LLM-Analyse)** muss der lokale LLM-Laufzeitdienst **Ollama** installiert sein:
+      * Laden Sie Ollama von [https://ollama.com/download](https://ollama.com/download) herunter.
+      * Öffnen Sie ein Terminal (CMD) und laden Sie das erforderliche Modell:
+        ```bash
+        ollama pull phi3
+        ```
+        *(Warten Sie den vollständigen Download ab.)*
 
-### 1.2 Abhaengigkeiten installieren
-py -m pip install -r requirements.txt
-py -m spacy download en_core_web_sm
+#### **3.2. Entwicklungsumgebung einrichten**
 
-## 2 Daten prüfen
+1.  **Repository klonen:**
+    ```bash
+    git clone https://github.com/Project-Team-HS25/biaSense
+    cd biaSense
+    ```
+2.  **Virtuelle Umgebung (venv) erstellen und aktivieren:**
+      * **Windows:**
+        ```bash
+        python -m venv .venv
+        .venv\Scripts\Activate
+        ```
+      * **Linux / Mac:**
+        ```bash
+        python3 -m venv .venv
+        source .venv/bin/activate
+        ```
+3.  **Abhängigkeiten installieren:**
+    Stellen Sie sicher, dass die `venv` aktiviert ist und installieren Sie die Pakete:
+    ```bash
+    pip install -r requirements.txt
+    py -m spacy download en_core_web_sm
+    ```
 
-Die Trainingsdaten liegen in `data/train.jsonl` und `data/dev.jsonl`.  
-Format für spaCy TextCat:
+#### **3.3. Starten des User Interface (UI)**
 
-{"text":"I love this product.","cats":{"pos":1.0,"neg":0.0,"neu":0.0}}
+Das zentrale Interface basiert auf Streamlit und startet die Webanwendung:
 
-Wenn eigene Daten: gleiche Struktur beibehalten.
+```bash
+py -m streamlit run Home.py
+```
 
-## 3 Modell trainieren
+  * Die Anwendung öffnet sich im Browser. Navigieren Sie über das Menü an der Seite zu den verschiedenen Analyse-Phasen.
+  * *Hinweis:* Das Terminal/CMD, in dem Sie den Befehl ausführen, muss geöffnet bleiben. Schließen Sie es mit `Strg + C`.
 
-py train_sentiment.py
-py train_frames.py
+-----
 
-Output:
-- Modell wird nach `models/xxx-mini` gespeichert
-- Accuracy wird auf dev-Daten ausgegeben
+### **4. Kontinuierliche Verbesserung (Nächste Schritte)**
 
-## 4 Pipeline ausführen
+Die folgenden Punkte sind Optionen für die Weiterentwicklung des Projekts:
 
-python run_pipeline.py
+  - Erweiterung der Trainingsdatenbasis für verbesserte Modellgenauigkeit. (besonders ML-Framing da der Datensatz generiert wurde)
+  - Implementierung von fortgeschrittenen Evaluierungsmetriken (Cross-Validation, Confusion-Matrix) mit Bibliotheken wie scikit-learn.
+  - Integration und Test von Sprachmodellen für die Analyse deutscher Texte.
 
-Dies:
-- Lädt das trainierte Modell
-- Fügt Framing-Komponente + Sentiment-Regel-Komponente hinzu
-- Gibt TextCat-Label, Frame-Zaehler und Regel-Sentiment aus
+-----
 
-## 5 Wenn Terminal neu gestartet wurde
+### **5. Häufige Probleme und Lösungen ⚙️**
 
-Virtuelle Umgebung erneut aktivieren:
-Windows:
-..venv\Scripts\activate
-
-Linux / Mac:
-source .venv/bin/activate
-
-Danach wieder:
-python run_pipeline.py
-
-## 7 Häufige Probleme
-
-| Problem | Lösung |
-|-------|--------|
-| pip Module nicht gefunden | Sicherstellen dass `.venv` aktiviert ist |
-| spacy Modell fehlt | `python -m spacy download en_core_web_sm` |
-| JSONL Formatfehler | Jede Zeile exakt ein JSON Objekt, keine Kommas |
-
-## 8 Nächste Schritte (optional / weiterführend)
-
-- Mehr Trainingsdaten sammeln
-- Frame-Wortlisten erweitern
-- Cross-Validation und Confusion-Matrix mit scikit-learn
-- spaCy Config + `spacy train` nutzen
-- Sprachmodelle für Deutsch testen
-
-Fertig.
-Kurzer Starttest:
-
-python train_sentiment.py 
-
-python run_pipeline.py
-# biaSense
-Sentiment klassifikations Projekt
-
-***Regeln***
-- Bitte nur getesteten und reviewten Code in den Mainbranch mergen (Review durch andere Person wäre gut)
-- Dokumentation auf deutsch
-- Kommentare auf deutsch im Code
-  
-https://github.com/orgs/Project-Team-HS25/projects/1
+| Problem | Ursache | Lösung |
+| :--- | :--- | :--- |
+| **`pip` Module nicht gefunden** | Die virtuelle Umgebung (`.venv`) ist nicht aktiviert. | Stellen Sie sicher, dass `.venv\Scripts\activate` (Windows) oder `source .venv/bin/activate` (Linux/Mac) ausgeführt wurde. |
+| **`spacy` Modell fehlt** | Das Basis-Sprachmodell wurde nicht geladen. | Führen Sie `python -m spacy download en_core_web_sm` aus. |
+| **JSONL Formatfehler** | Falsches Datenformat in Trainingsdateien. | Jede Zeile muss exakt ein gültiges JSON-Objekt sein; es sind keine Kommas zwischen den Zeilen erlaubt. |
+| **Ollama/LLM-Verbindung fehlgeschlagen** | Der Ollama-Dienst läuft nicht oder das Modell ist nicht geladen. | Stellen Sie sicher, dass Ollama läuft und Sie `ollama pull phi3` erfolgreich ausgeführt haben. |
+| **UI/Terminal-Blockade** | Die Anwendung wurde nicht korrekt beendet. | Beenden Sie das Terminal, in dem Streamlit läuft, mit `Strg + C`. |
 
