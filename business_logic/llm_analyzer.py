@@ -1,34 +1,24 @@
 import ollama
 
 SYSTEM_PROMPT = """Du bist ein Sentiment-Analyse Experte.
-
 WICHTIG: Sentiment-Scores sind IMMER 0-100 (niemals negativ!).
 - 0-20: sehr negativ
 - 21-40: negativ  
 - 41-60: neutral
 - 61-80: positiv
 - 81-100: sehr positiv
-
 Beispiel: "terrible" = 15/100, "amazing" = 90/100"""
 
-
-def analyse_text_mit_llm(text, custom_prompt=None):
-
+def analyse_text_mit_llm(text):
     base_instruction = """Kategorisierung: 0-20: sehr negativ, 21-40: negativ, 41-60: neutral, 61-80: positiv, 81-100: sehr positiv
-
 Verwende NUR Scores 0-100. Negative Wörter = niedrige Scores (z.B. 15/100).
-
 TEXT:
 {text}
-
-{task}
-
+Analysiere Sentiment (Adjektive, Verben, Gesamtstimmung).
 Antworte auf Deutsch."""
-
-    task = custom_prompt if custom_prompt else "Analysiere Sentiment (Adjektive, Verben, Gesamtstimmung)."
-
-    prompt = base_instruction.format(text=text, task=task)
-
+    
+    prompt = base_instruction.format(text=text)
+    
     response = ollama.chat(
         model='phi3',
         messages=[
@@ -36,7 +26,6 @@ Antworte auf Deutsch."""
             {'role': 'user', 'content': prompt}
         ]
     )
-
     return response['message']['content']
 
 def verbessere_text_mit_llm(text, custom_prompt=None):
