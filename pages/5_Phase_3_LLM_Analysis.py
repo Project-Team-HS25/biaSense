@@ -168,12 +168,7 @@ if st.button("Analysiere den Text"):
         with st.spinner("KI analysiert den Text..."):
             try:
                 # Aufruf deiner Backend-Funktion
-                # Wir übergeben None für adjective/verb results, da diese im Prompt optional sind
-                result = analyse_text_mit_llm(
-                    text=text_input, 
-                    _adjective_results=None, 
-                    _verb_results=None
-                )
+                result = analyse_text_mit_llm(text_input)
                 
                 # Ergebnis speichern
                 st.session_state.text = text_input
