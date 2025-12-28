@@ -256,11 +256,11 @@ if st.session_state.analysis_done:
         for idx, (adj, score, count, originals) in enumerate(sorted_adjectives):
             col_idx = idx % 3
             with adj_cols[col_idx]:
-                if score >= 80:
+                if score >= 81:
                     color = "🟢"
-                elif score >= 60:
+                elif score >= 61:
                     color = "🟡"
-                elif score >= 40:
+                elif score >= 41:
                     color = "🟠"
                 else:
                     color = "🔴"
@@ -318,11 +318,11 @@ if st.session_state.analysis_done:
         for idx, (verb, score, count, originals) in enumerate(sorted_verbs):
             col_idx = idx % 3
             with verb_cols[col_idx]:
-                if score >= 80:
+                if score >= 81:
                     color = "🟢"
-                elif score >= 60:
+                elif score >= 61:
                     color = "🟡"
-                elif score >= 40:
+                elif score >= 41:
                     color = "🟠"
                 else:
                     color = "🔴"
@@ -350,10 +350,10 @@ if st.session_state.analysis_done:
 
         if scores:
             combined_score = sum(scores) / len(scores)
-            if combined_score >= 66:
+            if combined_score >= 61:
                 overall_sentiment = "Positiv"
                 color = "🟢"
-            elif combined_score >= 40:
+            elif combined_score >= 41:
                 overall_sentiment = "Neutral"
                 color = "🟡"
             else:
