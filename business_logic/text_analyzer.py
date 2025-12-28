@@ -282,9 +282,9 @@ class TextAnalyzer:
             total_count = sum(count for _, _, count, _ in found_adjectives)
             avg_score = total_score / total_count
 
-            if avg_score >= 60:
+            if avg_score >= 61:
                 sentiment = "positive"
-            elif avg_score >= 40:
+            elif avg_score >= 41:
                 sentiment = "neutral"
             else:
                 sentiment = "negative"
@@ -327,9 +327,9 @@ class TextAnalyzer:
             total_count = sum(count for _, _, count, _ in found_verbs)
             avg_score = total_score / total_count
 
-            if avg_score >= 60:
+            if avg_score >= 61:
                 sentiment = "positiv"
-            elif avg_score >= 40:
+            elif avg_score >= 41:
                 sentiment = "neutral"
             else:
                 sentiment = "negativ"
