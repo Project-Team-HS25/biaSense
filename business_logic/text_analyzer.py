@@ -346,11 +346,11 @@ class TextAnalyzer:
 
     def get_sentiment_category(self, score):
         """Gibt eine Sentiment-Kategorie basierend auf einem Score zurück"""
-        if score >= 80:
+        if score >= 81:
             return "sehr positiv"
-        elif score >= 60:
+        elif score >= 61:
             return "positiv"
-        elif score >= 40:
+        elif score >= 41:
             return "neutral"
         elif score >= 20:
             return "negativ"
